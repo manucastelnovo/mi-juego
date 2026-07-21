@@ -32,10 +32,44 @@ deben respetar. Ajusta los valores entre `<...>` a tu proyecto real.
 1. Tú das una historia o idea al **scrum-master**.
 2. El **disenador** propone el desglose en épicas/historias/tareas → **tú lo
    apruebas** antes de que entre al sprint.
-3. El **programador** toma cada historia, trabaja en una rama y abre un **PR**.
-4. **qa** valida lo técnico (consola limpia, criterios cumplidos).
-5. **Tú revisas el PR**, lo pruebas en Play mode y **apruebas o pides cambios**.
-6. Solo con tu aprobación se mergea el PR y se cierra el issue.
+3. El **programador** toma cada historia y trabaja en una rama. Antes de pedir
+   revisión hace **autopruebas propias** (mini-QA): compila, entra a Play mode,
+   consola limpia y repasa los criterios de aceptación. Las documenta en el PR
+   bajo **"Autopruebas del dev"**.
+4. El programador abre el **PR**, le pone el label `needs-qa` y pide revisión a
+   **qa** en un comentario (`@qa listo para revisar`).
+5. **qa** valida lo técnico: Play mode, lee la consola, verifica cada criterio
+   uno por uno. En el PR deja **comentarios de mejora** (no bloqueantes) y puede
+   **conversar con el programador** las veces que haga falta (ida y vuelta).
+   - **Falla** (error de consola, criterio incumplido, regresión) → pide cambios
+     en el PR o abre un `bug`; el dev corrige en la misma rama y qa revuelve.
+   - **Pasa** → qa comenta **"✅ Aprobado por QA"** y pone el label `qa-approved`.
+     Ese es el **gate**: sin "Aprobado por QA" el PO no revisa.
+6. **Solo con "Aprobado por QA", tú (PO) haces la prueba final** en Play mode y
+   apruebas o pides cambios. Solo con tu aprobación se mergea y se cierra el issue.
+7. **Comunicación con el PO:** si qa o el programador tienen dudas de diseño o
+   necesitan una decisión tuya, te preguntan **en un comentario del PR/issue de
+   GitHub** (te mencionan). No deciden la visión del juego por su cuenta.
+
+**Regla del gate:** el orden es siempre *dev (autopruebas) → qa (Aprobado por QA)
+→ PO (prueba final)*. Nada salta el paso de qa.
+
+### Convenciones de comentarios y evidencia (trazabilidad)
+- **Firma del rol al principio de cada comentario.** Todo comentario de un agente
+  en un PR/issue empieza con su etiqueta de rol en negrita, en la primera línea:
+  `**[DEV]**`, `**[QA]**`. Así se sabe de un vistazo quién habla. (El PO es humano
+  y no necesita firmar.)
+- **Plan de pruebas del dev.** Al pedir QA, el programador deja un comentario
+  `**[DEV]**` con el **plan de pruebas** derivado de los criterios del ticket:
+  la lista concreta de qué hay que probar. QA ejecuta ese plan (no inventa el
+  suyo; puede sumar casos, pero cubre primero el del dev).
+- **QA responde con evidencia.** QA contesta con un comentario `**[QA]**` que
+  recorre el plan punto por punto (✅/❌) y **adjunta screenshots como evidencia**
+  de las pruebas. Las capturas se guardan en `docs/qa/` (fuera de `Assets/`, para
+  que Unity no las importe) y se embeben en el comentario con la URL raw del
+  branch: `https://raw.githubusercontent.com/manucastelnovo/mi-juego/<rama>/docs/qa/<archivo>.png`.
+- **Conversación en el PR.** El ida y vuelta dev↔qa vive en comentarios del PR,
+  cada uno firmado. Las preguntas al PO también van ahí, firmadas y mencionándolo.
 
 ## Estrategia de ramas
 - `main` — siempre jugable y estable. Nadie pushea directo; solo se entra por PR.
@@ -97,6 +131,10 @@ El estado "hecho" = issue cerrado por el merge del PR (`Closes #n`).
 
 ## Etiquetas (labels) de GitHub
 `epic` · `story` · `task` · `bug` · `art` · `asset`
+
+Labels de proceso (ciclo de QA):
+- `needs-qa` — el PR está listo y espera revisión de qa.
+- `qa-approved` — qa dio "✅ Aprobado por QA"; habilitado para la prueba final del PO.
 
 ## Regla de oro
 Sprints cortos, PRs pequeños, incrementos jugables. Terminar y que el PO lo
