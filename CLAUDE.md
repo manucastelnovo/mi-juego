@@ -18,7 +18,9 @@ deben respetar. Ajusta los valores entre `<...>` a tu proyecto real.
 ## Datos del proyecto
 - Repositorio de issues/PRs: `manucastelnovo/mi-juego`
 - Rama principal protegida: `main`
-- Project (tablero) con campos `Status` (Todo/In Progress/Done) e `Iteration`.
+- Project (tablero) "Mi Juego - Sprint Board" (nº 1, owner manucastelnovo) con
+  campos `Status` (Todo/In Progress/Done) y `Sprint` (single-select: Backlog,
+  Sprint 1, Sprint 2, Sprint 3). El sprint activo se marca con el campo `Sprint`.
 - Motor: Unity `6000.5.4f1` · Render pipeline: `Built-in` (creado por CLI)
 - **Plataforma objetivo: móvil (Android)** — juegos 2D para celular. Optimizar
   para pantallas táctiles y rendimiento en dispositivos de gama media.
