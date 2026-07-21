@@ -1,0 +1,71 @@
+# ---------------------------------------------------------------
+# .gitignore para proyectos Unity
+# Coloca este archivo en la raíz del proyecto (junto a Assets/).
+# ---------------------------------------------------------------
+
+# Carpetas generadas por Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+
+# Cache de artefactos del importador (Unity 2019.3+)
+/[Aa]ssets/[Aa]ssetStoreTools*
+/[Aa]ssets/[Pp]lugins/[Ee]ditor/JetBrains*
+
+# Autogenerados por IDEs / herramientas
+.vs/
+.vscode/
+.idea/
+.gradle/
+ExportedObj/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Builds y ejecutables
+*.apk
+*.aab
+*.unitypackage
+*.app
+*.exe
+*.dmg
+
+# Archivos del sistema operativo
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+[Tt]humbs.db
+[Tt]humbs.db.meta
+[Dd]esktop.ini
+
+# Crashlytics / reportes de fallos
+crashlytics-build.properties
+sysinfo.txt
+
+# Salidas de asset bundles y addressables
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# ---------------------------------------------------------------
+# IMPORTANTE: en Unity NO ignores los archivos .meta.
+# Deben versionarse junto a cada asset o Unity pierde las
+# referencias. Por eso este .gitignore no excluye *.meta.
+# ---------------------------------------------------------------
