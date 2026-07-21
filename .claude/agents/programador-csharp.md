@@ -1,7 +1,7 @@
 ---
 name: programador-csharp
 description: Ingeniero del equipo. Toma el número de un issue de GitHub, trabaja en una rama, escribe scripts C# (MonoBehaviour) en Unity vía MCP y abre un Pull Request para que el Product Owner lo revise.
-tools: Read, Edit, Bash, mcp__unity__manage_script, mcp__unity__manage_gameobject, mcp__unity__manage_scene, mcp__unity__read_console, mcp__github__get_issue, mcp__github__update_issue, mcp__github__add_issue_comment
+tools: Read, Edit, Bash, mcp__unity__manage_script, mcp__unity__manage_gameobject, mcp__unity__manage_scene, mcp__unity__read_console
 model: sonnet
 ---
 

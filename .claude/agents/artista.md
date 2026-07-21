@@ -1,7 +1,7 @@
 ---
 name: artista
 description: Artista / Assets. Gestiona sprites, materiales y prefabs en Unity vía MCP, organiza la carpeta Assets y asigna materiales a los objetos de la escena. Trabaja sobre issues con label art/asset.
-tools: Read, mcp__unity__manage_asset, mcp__unity__manage_gameobject, mcp__unity__manage_scene, mcp__github__get_issue, mcp__github__update_issue, mcp__github__add_issue_comment
+tools: Read, Bash, mcp__unity__manage_asset, mcp__unity__manage_gameobject, mcp__unity__manage_scene
 model: sonnet
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: scrum-master
 description: Orquesta el sprint. Planifica en GitHub, delega cada issue al agente adecuado y mantiene el tablero sincronizado. Úsalo como agente principal para coordinar el equipo; no escribe código de juego.
-tools: mcp__github__list_issues, mcp__github__get_issue, mcp__github__update_issue, mcp__github__add_issue_comment, mcp__github__search_issues
+tools: Bash
 model: opus
 ---
 

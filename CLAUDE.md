@@ -45,6 +45,45 @@ deben respetar. Ajusta los valores entre `<...>` a tu proyecto real.
   para que el PO revise la feature completa de una vez.
 - `bug/<issue>-<slug>` — correcciones puntuales.
 
+## GitHub vía `gh` CLI (sin MCP)
+Todos los agentes operan GitHub con el CLI `gh` (ya autenticado), no con MCP.
+Repo: `manucastelnovo/mi-juego`. Project: nº `1`, owner `manucastelnovo`.
+En Windows, si `gh` no está en el PATH, usar la ruta completa
+`"C:\Program Files\GitHub CLI\gh.exe"`.
+
+Comandos base:
+```bash
+# Crear una historia
+gh issue create --repo manucastelnovo/mi-juego --title "Como jugador, quiero saltar" \
+  --body "Criterios: ..." --label story
+
+# Comentar / cerrar / ver
+gh issue comment <n> --repo manucastelnovo/mi-juego --body "QA OK"
+gh issue close <n>   --repo manucastelnovo/mi-juego
+gh issue view <n>    --repo manucastelnovo/mi-juego
+
+# Añadir un issue al tablero
+gh project item-add 1 --owner manucastelnovo --url <url-del-issue>
+
+# Abrir un Pull Request (desde la rama de trabajo)
+gh pr create --base main --head feat/<n>-slug --title "..." --body "Closes #<n>"
+```
+
+**Jerarquía épica → historia → tarea:** como `gh` no tiene comando directo de
+sub-issues, el desglose se representa con **task lists** en el cuerpo del issue
+padre, referenciando a los hijos por número (GitHub las trata como sub-issues):
+```
+## Historias
+- [ ] #12 Salto del personaje
+- [ ] #13 Gravedad
+```
+
+**Estado del tablero (Status / Sprint):** mover tarjetas por columnas requiere
+IDs de campo/opción (`gh project item-edit`) y es engorroso. Para no bloquear el
+flujo, los agentes usan **labels + estado open/closed** del issue como fuente de
+verdad; el Product Owner (o un ajuste manual) coloca las tarjetas en el tablero.
+El estado "hecho" = issue cerrado por el merge del PR (`Closes #n`).
+
 ## Convenciones de código (Unity / C#)
 - Scripts en `Assets/Scripts/`, un `MonoBehaviour` por responsabilidad.
 - Nombres en `PascalCase` para clases y métodos, `camelCase` para campos.

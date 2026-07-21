@@ -1,7 +1,7 @@
 ---
 name: disenador
 description: Diseñador de juego. Convierte una idea en un GDD corto y lo desglosa en épicas, historias y tareas dentro de GitHub, llenando la iteración del sprint. No toca Unity.
-tools: Read, Write, mcp__github__create_issue, mcp__github__update_issue, mcp__github__add_sub_issue, mcp__github__search_issues
+tools: Read, Write, Bash
 model: sonnet
 ---
 
