@@ -67,9 +67,17 @@ deben respetar. Ajusta los valores entre `<...>` a tu proyecto real.
   suyo; puede sumar casos, pero cubre primero el del dev).
 - **QA responde con evidencia.** QA contesta con un comentario `**[QA]**` que
   recorre el plan punto por punto (✅/❌) y **adjunta screenshots como evidencia**
-  de las pruebas. Las capturas se guardan en `docs/qa/` (fuera de `Assets/`, para
-  que Unity no las importe) y se embeben en el comentario con la URL raw del
-  branch: `https://raw.githubusercontent.com/manucastelnovo/mi-juego/<rama>/docs/qa/<archivo>.png`.
+  de las pruebas. **El repo es privado**, así que las URL `raw.githubusercontent.com`
+  **no renderizan** inline (el proxy de imágenes de GitHub no se autentica → 404).
+  Reglas de evidencia:
+  - **Para que se vea inline:** el humano/QA **arrastra las capturas al cuadro de
+    comentario** en el navegador; GitHub las sube a `user-attachments` y sí se
+    embeben para colaboradores logueados. (No hay API de adjuntos, no se hace por CLI.)
+  - **Vía CLI (sin drag&drop):** guardar las capturas en `docs/qa/` (fuera de
+    `Assets/`, para que Unity no las importe), commitearlas, y en el comentario
+    dejar **enlaces clicables** al archivo (blob), no imágenes embebidas:
+    `[descripción](https://github.com/manucastelnovo/mi-juego/blob/<rama>/docs/qa/<archivo>.png)`.
+    Abren logueado en una pestaña; no intentar embeber con `raw` (sale roto).
 - **Conversación en el PR.** El ida y vuelta dev↔qa vive en comentarios del PR,
   cada uno firmado. Las preguntas al PO también van ahí, firmadas y mencionándolo.
 
