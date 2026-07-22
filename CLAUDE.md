@@ -32,10 +32,46 @@ deben respetar. Ajusta los valores entre `<...>` a tu proyecto real.
 1. Tú das una historia o idea al **scrum-master**.
 2. El **disenador** propone el desglose en épicas/historias/tareas → **tú lo
    apruebas** antes de que entre al sprint.
-3. El **programador** toma cada historia, trabaja en una rama y abre un **PR**.
-4. **qa** valida lo técnico (consola limpia, criterios cumplidos).
-5. **Tú revisas el PR**, lo pruebas en Play mode y **apruebas o pides cambios**.
-6. Solo con tu aprobación se mergea el PR y se cierra el issue.
+3. El **programador** toma cada historia y trabaja en una rama. Antes de pedir
+   revisión hace **autopruebas propias** (mini-QA): compila, entra a Play mode,
+   consola limpia y repasa los criterios de aceptación. Las documenta en el PR
+   bajo **"Autopruebas del dev"**.
+4. El programador abre el **PR**, le pone el label `needs-qa` y pide revisión a
+   **qa** en un comentario (`@qa listo para revisar`).
+5. **qa** valida lo técnico: Play mode, lee la consola, verifica cada criterio
+   uno por uno. En el PR deja **comentarios de mejora** (no bloqueantes) y puede
+   **conversar con el programador** las veces que haga falta (ida y vuelta).
+   - **Falla** (error de consola, criterio incumplido, regresión) → pide cambios
+     en el PR o abre un `bug`; el dev corrige en la misma rama y qa revuelve.
+   - **Pasa** → qa comenta **"✅ Aprobado por QA"** y pone el label `qa-approved`.
+     Ese es el **gate**: sin "Aprobado por QA" el PO no revisa.
+6. **Solo con "Aprobado por QA", tú (PO) haces la prueba final** en Play mode y
+   apruebas o pides cambios. Solo con tu aprobación se mergea y se cierra el issue.
+7. **Comunicación con el PO:** si qa o el programador tienen dudas de diseño o
+   necesitan una decisión tuya, te preguntan **en un comentario del PR/issue de
+   GitHub** (te mencionan). No deciden la visión del juego por su cuenta.
+
+**Regla del gate:** el orden es siempre *dev (autopruebas) → qa (Aprobado por QA)
+→ PO (prueba final)*. Nada salta el paso de qa.
+
+### Convenciones de comentarios y evidencia (trazabilidad)
+- **Tarjeta de rol al inicio (Salto Games).** Cada comentario de un agente empieza con su
+  tarjeta de rol (ver "Identidad de los agentes en GitHub"), p. ej.
+  `### 🧪 QA · Salto Games`. Así se sabe quién habla. (El PO comenta con su cuenta, sin
+  tarjeta.)
+- **Comentarios resumidos y claros.** Título corto + 2–5 bullets en lenguaje de
+  funcionalidades. Nada de dumps técnicos ni de logs.
+- **Plan de pruebas del dev.** Al pedir QA, el programador deja un comentario
+  `**[DEV]**` con el **plan de pruebas** derivado de los criterios del ticket:
+  la lista concreta de qué hay que probar. QA ejecuta ese plan (no inventa el
+  suyo; puede sumar casos, pero cubre primero el del dev).
+- **QA responde con evidencia.** QA contesta con un comentario `**[QA]**` que
+  recorre el plan punto por punto (✅/❌) y **adjunta screenshots como evidencia**
+  de las pruebas. Las capturas se guardan en `docs/qa/` (fuera de `Assets/`, para
+  que Unity no las importe) y se embeben en el comentario con la URL raw del
+  branch: `https://raw.githubusercontent.com/manucastelnovo/mi-juego/<rama>/docs/qa/<archivo>.png`.
+- **Conversación en el PR.** El ida y vuelta dev↔qa vive en comentarios del PR,
+  cada uno firmado. Las preguntas al PO también van ahí, firmadas y mencionándolo.
 
 ## Estrategia de ramas
 - `main` — siempre jugable y estable. Nadie pushea directo; solo se entra por PR.
@@ -84,6 +120,27 @@ flujo, los agentes usan **labels + estado open/closed** del issue como fuente de
 verdad; el Product Owner (o un ajuste manual) coloca las tarjetas en el tablero.
 El estado "hecho" = issue cerrado por el merge del PR (`Closes #n`).
 
+## Identidad de los agentes en GitHub (tarjetas de rol — estudio "Salto Games")
+Todos los agentes comentan con **la cuenta del PO** (`manucastelnovo`): GitHub no permite
+varias identidades dentro de una misma cuenta. Para saber quién habla, **cada comentario
+empieza con la tarjeta de rol** del estudio (primera línea, encabezado con emoji):
+
+| Rol | Tarjeta (primera línea del comentario) |
+|-----|----------------------------------------|
+| scrum-master | `### 📋 Scrum · Salto Games` |
+| disenador | `### 🎯 Diseño · Salto Games` |
+| programador-csharp | `### 🧑‍💻 Dev · Salto Games` |
+| qa | `### 🧪 QA · Salto Games` |
+| artista | `### 🎨 Arte · Salto Games` |
+
+El PO (humano) comenta con su cuenta, **sin tarjeta**. Las llamadas `gh` son las normales
+(sin tokens especiales).
+
+### Estilo de comentarios (resumido y claro)
+Debajo de la tarjeta: **título de una línea + 2–5 bullets** en lenguaje de
+**funcionalidades** (qué se hizo / se pide / se decidió), sin volcados técnicos ni dumps de
+logs.
+
 ## Convenciones de código (Unity / C#)
 - Scripts en `Assets/Scripts/`, un `MonoBehaviour` por responsabilidad.
 - Nombres en `PascalCase` para clases y métodos, `camelCase` para campos.
@@ -94,9 +151,29 @@ El estado "hecho" = issue cerrado por el merge del PR (`Closes #n`).
 - `Assets/Art/Sprites`, `Assets/Art/Materials`, `Assets/Prefabs`, `Assets/Scenes`.
 - Prefabs reutilizables en vez de configurar objetos sueltos.
 - Solo assets propios o de licencia libre declarada.
+- Sprites móviles: **PNG con alpha**, tamaño en px pensado para pantallas de gama media,
+  con su **PPU** (Pixels Per Unit) coherente con la escala del juego.
+
+### Flujo de arte (brief en GitHub → assets en repo + Google Drive)
+1. **Brief en GitHub** (lo redacta Diseño/Arte en el issue `art`/`asset`): plantilla —
+   *estilo, paleta, tamaño px + PPU, lista de sprites, formato (PNG alpha)*.
+2. **Gate del brief:** el **PO aprueba el brief** en GitHub antes de que Arte produzca
+   (los agentes no deciden la visión).
+3. **Producción y doble destino:** el sprite game-ready va a `Assets/Art/Sprites` en el
+   **repo** (Unity lo necesita) **y** una copia se sube a **Google Drive**, en la carpeta
+   espejo **`Salto Games/Assets/Sprites`** (`Materials`, etc.). Drive es la superficie de
+   **revisión/archivo** del PO.
+4. **Entrega en GitHub:** Arte deja un comentario (cuenta *Arte — Salto Games*) con el
+   preview del sprite y el **enlace a Drive**, y pide revisión.
+5. **Gate final:** QA valida técnico (sprites asignados, colliders intactos, consola
+   limpia) → el **PO aprueba lo visual**.
 
 ## Etiquetas (labels) de GitHub
 `epic` · `story` · `task` · `bug` · `art` · `asset`
+
+Labels de proceso (ciclo de QA):
+- `needs-qa` — el PR está listo y espera revisión de qa.
+- `qa-approved` — qa dio "✅ Aprobado por QA"; habilitado para la prueba final del PO.
 
 ## Regla de oro
 Sprints cortos, PRs pequeños, incrementos jugables. Terminar y que el PO lo
