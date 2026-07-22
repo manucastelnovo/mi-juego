@@ -13,6 +13,17 @@
 [Uu]ser[Ss]ettings/
 [Mm]emoryCaptures/
 
+# Escenas de recuperacion que Unity crea tras un cierre inesperado.
+# Son copias temporales de la escena abierta, no trabajo real.
+/[Aa]ssets/_[Rr]ecovery/
+/[Aa]ssets/_[Rr]ecovery.meta
+
+# Capturas de trabajo que las herramientas dejan dentro de Assets/.
+# La evidencia de QA se versiona en docs/qa/, fuera de Assets/,
+# para que Unity no la importe ni la meta en el build.
+/[Aa]ssets/[Ss]creenshots/
+/[Aa]ssets/[Ss]creenshots.meta
+
 # Cache de artefactos del importador (Unity 2019.3+)
 /[Aa]ssets/[Aa]ssetStoreTools*
 /[Aa]ssets/[Pp]lugins/[Ee]ditor/JetBrains*
