@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "mcp__UnityMCP"
+      "mcp__UnityMCP",
+      "mcp__claude_ai_Google_Drive"
     ]
   }
 }

@@ -17,6 +17,10 @@
 /[Aa]ssets/[Aa]ssetStoreTools*
 /[Aa]ssets/[Pp]lugins/[Ee]ditor/JetBrains*
 
+# Config local de Claude Code con secretos (tokens de los bots del estudio).
+# NUNCA se commitea. Ver .claude/settings.local.json.example como plantilla.
+.claude/settings.local.json
+
 # Autogenerados por IDEs / herramientas
 .vs/
 .vscode/

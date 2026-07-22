@@ -55,10 +55,12 @@ deben respetar. Ajusta los valores entre `<...>` a tu proyecto real.
 → PO (prueba final)*. Nada salta el paso de qa.
 
 ### Convenciones de comentarios y evidencia (trazabilidad)
-- **Firma del rol al principio de cada comentario.** Todo comentario de un agente
-  en un PR/issue empieza con su etiqueta de rol en negrita, en la primera línea:
-  `**[DEV]**`, `**[QA]**`. Así se sabe de un vistazo quién habla. (El PO es humano
-  y no necesita firmar.)
+- **Identidad por cuenta bot (Salto Games).** Cada rol comenta con su propia cuenta
+  (ver "Identidad de los agentes en GitHub"), así se sabe quién habla por el autor. La
+  **firma `**[ROL]**`** al inicio queda como **fallback** para cuando el bot todavía no
+  está configurado. (El PO es humano y comenta con su cuenta.)
+- **Comentarios resumidos y claros.** Título corto + 2–5 bullets en lenguaje de
+  funcionalidades. Nada de dumps técnicos ni de logs.
 - **Plan de pruebas del dev.** Al pedir QA, el programador deja un comentario
   `**[DEV]**` con el **plan de pruebas** derivado de los criterios del ticket:
   la lista concreta de qué hay que probar. QA ejecuta ese plan (no inventa el
@@ -118,6 +120,34 @@ flujo, los agentes usan **labels + estado open/closed** del issue como fuente de
 verdad; el Product Owner (o un ajuste manual) coloca las tarjetas en el tablero.
 El estado "hecho" = issue cerrado por el merge del PR (`Closes #n`).
 
+## Identidad de los agentes en GitHub (cuentas del estudio "Salto Games")
+Cada rol comenta/crea en GitHub con **su propia cuenta bot** del estudio, no con la del
+PO. El PO (humano) es `manucastelnovo`.
+
+| Rol | Cuenta (nombre visible) | Token (env) |
+|-----|-------------------------|-------------|
+| scrum-master | Scrum — Salto Games | `SALTO_SCRUM_TOKEN` |
+| disenador | Diseño — Salto Games | `SALTO_DESIGN_TOKEN` |
+| programador-csharp | Dev — Salto Games | `SALTO_DEV_TOKEN` |
+| qa | QA — Salto Games | `SALTO_QA_TOKEN` |
+| artista | Arte — Salto Games | `SALTO_ART_TOKEN` |
+
+**Cómo se usa:** para cualquier `gh` de **escritura** (`pr comment`, `pr create`,
+`pr edit`, `issue create/comment`), antepone el token del rol:
+```bash
+GH_TOKEN="$SALTO_QA_TOKEN" gh pr comment 11 --repo manucastelnovo/mi-juego --body "..."
+```
+**Fallback:** si la variable del rol está vacía (bot aún no creado), usá `gh` normal y
+empezá el comentario con la firma `**[ROL]**` (p. ej. `**[QA]**`). Los tokens viven en
+`.claude/settings.local.json` (gitignored); plantilla en `.claude/settings.local.json.example`.
+Los **commits/push** siguen con la credencial git del entorno (no usan estos tokens).
+
+### Estilo de comentarios (resumido y claro)
+Los comentarios en GitHub son **cortos y escaneables**: un **título** claro + 2–5 bullets
+en lenguaje de **funcionalidades** (qué se hizo / se pide / se decidió), sin volcados
+técnicos ni dumps de logs. La identidad la da la cuenta bot; la firma `[ROL]` es solo
+fallback.
+
 ## Convenciones de código (Unity / C#)
 - Scripts en `Assets/Scripts/`, un `MonoBehaviour` por responsabilidad.
 - Nombres en `PascalCase` para clases y métodos, `camelCase` para campos.
@@ -128,6 +158,22 @@ El estado "hecho" = issue cerrado por el merge del PR (`Closes #n`).
 - `Assets/Art/Sprites`, `Assets/Art/Materials`, `Assets/Prefabs`, `Assets/Scenes`.
 - Prefabs reutilizables en vez de configurar objetos sueltos.
 - Solo assets propios o de licencia libre declarada.
+- Sprites móviles: **PNG con alpha**, tamaño en px pensado para pantallas de gama media,
+  con su **PPU** (Pixels Per Unit) coherente con la escala del juego.
+
+### Flujo de arte (brief en GitHub → assets en repo + Google Drive)
+1. **Brief en GitHub** (lo redacta Diseño/Arte en el issue `art`/`asset`): plantilla —
+   *estilo, paleta, tamaño px + PPU, lista de sprites, formato (PNG alpha)*.
+2. **Gate del brief:** el **PO aprueba el brief** en GitHub antes de que Arte produzca
+   (los agentes no deciden la visión).
+3. **Producción y doble destino:** el sprite game-ready va a `Assets/Art/Sprites` en el
+   **repo** (Unity lo necesita) **y** una copia se sube a **Google Drive**, en la carpeta
+   espejo **`Salto Games/Assets/Sprites`** (`Materials`, etc.). Drive es la superficie de
+   **revisión/archivo** del PO.
+4. **Entrega en GitHub:** Arte deja un comentario (cuenta *Arte — Salto Games*) con el
+   preview del sprite y el **enlace a Drive**, y pide revisión.
+5. **Gate final:** QA valida técnico (sprites asignados, colliders intactos, consola
+   limpia) → el **PO aprueba lo visual**.
 
 ## Etiquetas (labels) de GitHub
 `epic` · `story` · `task` · `bug` · `art` · `asset`
