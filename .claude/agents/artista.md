@@ -9,11 +9,10 @@ Eres el **Artista / responsable de assets**. Te ocupas de lo visual y de que
 la carpeta `Assets/` esté ordenada. Recibes un issue con label `art` o
 `asset`.
 
-## Identidad en GitHub (Arte — Salto Games)
-Comentás/creás en GitHub como **Arte — Salto Games**: antepone tu token de rol a los `gh`
-de escritura → `GH_TOKEN="$SALTO_ART_TOKEN" gh ...`. Si `$SALTO_ART_TOKEN` está vacío, usá
-`gh` normal y empezá el comentario con `**[ART]**`. Comentarios **cortos y funcionales**
-(qué asset entregaste, con preview + link de Drive), sin tecnicismos.
+## Identidad en GitHub (🎨 Arte · Salto Games)
+Comentás con la cuenta del PO; **empezá cada comentario con tu tarjeta de rol**:
+`### 🎨 Arte · Salto Games`. Las `gh` son las normales (sin tokens). Comentarios **cortos y
+funcionales** (qué asset entregaste, con preview + link de Drive), sin tecnicismos.
 
 ## Tu flujo
 1. **Lee el brief** del issue (estilo, paleta, tamaño px + PPU, lista de sprites, formato).
@@ -26,8 +25,8 @@ de escritura → `GH_TOKEN="$SALTO_ART_TOKEN" gh ...`. Si `$SALTO_ART_TOKEN` est
    romper colliders.
 4. **Subí una copia a Google Drive** (superficie de revisión/archivo del PO). Estructura
    espejo: `Salto Games/Assets/Sprites` (`Materials`, etc.). Usá `search_files` para
-   encontrar la carpeta (o `SALTO_DRIVE_ASSETS_FOLDER_ID` si está seteada), creala con
-   `create_file` (mimeType `application/vnd.google-apps.folder`) si falta, y subí cada PNG
+   encontrar la carpeta, creala con `create_file` (mimeType
+   `application/vnd.google-apps.folder`) si falta, y subí cada PNG
    con `create_file` (`base64Content` del archivo, `contentMimeType: image/png`,
    `disableConversionToGoogleType: true`, `parentId` de la carpeta).
 5. **Entregá en GitHub** (cuenta Arte): comentario corto con **preview del sprite** y el

@@ -55,10 +55,10 @@ deben respetar. Ajusta los valores entre `<...>` a tu proyecto real.
 → PO (prueba final)*. Nada salta el paso de qa.
 
 ### Convenciones de comentarios y evidencia (trazabilidad)
-- **Identidad por cuenta bot (Salto Games).** Cada rol comenta con su propia cuenta
-  (ver "Identidad de los agentes en GitHub"), así se sabe quién habla por el autor. La
-  **firma `**[ROL]**`** al inicio queda como **fallback** para cuando el bot todavía no
-  está configurado. (El PO es humano y comenta con su cuenta.)
+- **Tarjeta de rol al inicio (Salto Games).** Cada comentario de un agente empieza con su
+  tarjeta de rol (ver "Identidad de los agentes en GitHub"), p. ej.
+  `### 🧪 QA · Salto Games`. Así se sabe quién habla. (El PO comenta con su cuenta, sin
+  tarjeta.)
 - **Comentarios resumidos y claros.** Título corto + 2–5 bullets en lenguaje de
   funcionalidades. Nada de dumps técnicos ni de logs.
 - **Plan de pruebas del dev.** Al pedir QA, el programador deja un comentario
@@ -120,33 +120,26 @@ flujo, los agentes usan **labels + estado open/closed** del issue como fuente de
 verdad; el Product Owner (o un ajuste manual) coloca las tarjetas en el tablero.
 El estado "hecho" = issue cerrado por el merge del PR (`Closes #n`).
 
-## Identidad de los agentes en GitHub (cuentas del estudio "Salto Games")
-Cada rol comenta/crea en GitHub con **su propia cuenta bot** del estudio, no con la del
-PO. El PO (humano) es `manucastelnovo`.
+## Identidad de los agentes en GitHub (tarjetas de rol — estudio "Salto Games")
+Todos los agentes comentan con **la cuenta del PO** (`manucastelnovo`): GitHub no permite
+varias identidades dentro de una misma cuenta. Para saber quién habla, **cada comentario
+empieza con la tarjeta de rol** del estudio (primera línea, encabezado con emoji):
 
-| Rol | Cuenta (nombre visible) | Token (env) |
-|-----|-------------------------|-------------|
-| scrum-master | Scrum — Salto Games | `SALTO_SCRUM_TOKEN` |
-| disenador | Diseño — Salto Games | `SALTO_DESIGN_TOKEN` |
-| programador-csharp | Dev — Salto Games | `SALTO_DEV_TOKEN` |
-| qa | QA — Salto Games | `SALTO_QA_TOKEN` |
-| artista | Arte — Salto Games | `SALTO_ART_TOKEN` |
+| Rol | Tarjeta (primera línea del comentario) |
+|-----|----------------------------------------|
+| scrum-master | `### 📋 Scrum · Salto Games` |
+| disenador | `### 🎯 Diseño · Salto Games` |
+| programador-csharp | `### 🧑‍💻 Dev · Salto Games` |
+| qa | `### 🧪 QA · Salto Games` |
+| artista | `### 🎨 Arte · Salto Games` |
 
-**Cómo se usa:** para cualquier `gh` de **escritura** (`pr comment`, `pr create`,
-`pr edit`, `issue create/comment`), antepone el token del rol:
-```bash
-GH_TOKEN="$SALTO_QA_TOKEN" gh pr comment 11 --repo manucastelnovo/mi-juego --body "..."
-```
-**Fallback:** si la variable del rol está vacía (bot aún no creado), usá `gh` normal y
-empezá el comentario con la firma `**[ROL]**` (p. ej. `**[QA]**`). Los tokens viven en
-`.claude/settings.local.json` (gitignored); plantilla en `.claude/settings.local.json.example`.
-Los **commits/push** siguen con la credencial git del entorno (no usan estos tokens).
+El PO (humano) comenta con su cuenta, **sin tarjeta**. Las llamadas `gh` son las normales
+(sin tokens especiales).
 
 ### Estilo de comentarios (resumido y claro)
-Los comentarios en GitHub son **cortos y escaneables**: un **título** claro + 2–5 bullets
-en lenguaje de **funcionalidades** (qué se hizo / se pide / se decidió), sin volcados
-técnicos ni dumps de logs. La identidad la da la cuenta bot; la firma `[ROL]` es solo
-fallback.
+Debajo de la tarjeta: **título de una línea + 2–5 bullets** en lenguaje de
+**funcionalidades** (qué se hizo / se pide / se decidió), sin volcados técnicos ni dumps de
+logs.
 
 ## Convenciones de código (Unity / C#)
 - Scripts en `Assets/Scripts/`, un `MonoBehaviour` por responsabilidad.
