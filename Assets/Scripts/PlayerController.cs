@@ -2,9 +2,9 @@ using UnityEngine;
 
 /// <summary>
 /// Movimiento del personaje: desplazamiento horizontal y salto con
-/// deteccion de suelo. Expone metodos publicos (Mover/Saltar) para que
-/// los botones tactiles de #4 lo controlen. El control por teclado es
-/// temporal para poder probar #3 y sera reemplazado en #4.
+/// deteccion de suelo. Se controla desde los botones tactiles en pantalla
+/// (ver BotonDireccion), que llaman a los metodos publicos Mover/Saltar/
+/// DetenerMovimiento. No lee teclado: el input llega por la UI tactil.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -21,16 +21,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    private void Update()
-    {
-        // --- Control temporal por teclado (se elimina en #4) ---
-        direccionHorizontal = Input.GetAxisRaw("Horizontal");
-        if (Input.GetButtonDown("Jump"))
-        {
-            Saltar();
-        }
     }
 
     private void FixedUpdate()
