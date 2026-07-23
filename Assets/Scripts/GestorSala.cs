@@ -37,11 +37,22 @@ public class GestorSala : MonoBehaviour
     /// <summary>Se dispara cuando el jugador confirma que quiere entrar a la sala ya encontrada.</summary>
     public static event Action<string> AlEntrarSala;
 
+    /// <summary>Se dispara cuando el jugador deja la sala (boton SALIR) y la UI puede volver al menu.</summary>
+    public static event Action AlSalirDeSala;
+
     /// <summary>La sesion activa como host, una vez creada. Null si todavia no hay sala.</summary>
     public IHostSession SesionActual { get; private set; }
 
     /// <summary>La sesion a la que nos unimos como cliente. Null si todavia no encontramos ninguna.</summary>
     public ISession SesionUnida { get; private set; }
+
+    /// <summary>
+    /// La sesion en la que estoy metido ahora mismo, sea como host o como
+    /// cliente. Null si no hay ninguna. Pensada para que la UI (sala de
+    /// espera, y a futuro la historia #41) no tenga que preguntar cual de
+    /// las dos sesiones usar.
+    /// </summary>
+    public ISession SesionEnCurso => (ISession)SesionActual ?? SesionUnida;
 
     private void Awake()
     {
@@ -133,13 +144,39 @@ public class GestorSala : MonoBehaviour
     /// <summary>
     /// Confirma la entrada a la sala ya encontrada (el jugador ya esta
     /// conectado como cliente desde BuscarSala; esto solo avisa a la UI que
-    /// pase a la sala de espera). La lista de jugadores en vivo es la
-    /// historia #40 y el boton EMPEZAR la #41.
+    /// pase a la sala de espera, con su lista de jugadores en vivo). Arrancar
+    /// la partida con el boton EMPEZAR es la historia #41.
     /// </summary>
     public void ConfirmarEntrada()
     {
         if (SesionUnida == null) return;
         AlEntrarSala?.Invoke(SesionUnida.Code);
+    }
+
+    /// <summary>
+    /// Deja la sala actual (como host o como cliente) y avisa por
+    /// AlSalirDeSala para que la UI vuelva al menu. Es seguro llamarla
+    /// aunque ya no haya sesion activa.
+    /// </summary>
+    public async void SalirDeSala()
+    {
+        ISession sesion = SesionEnCurso;
+        SesionActual = null;
+        SesionUnida = null;
+
+        if (sesion != null)
+        {
+            try
+            {
+                await sesion.LeaveAsync();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[Sala] Error al salir de la sala: {e.Message}");
+            }
+        }
+
+        AlSalirDeSala?.Invoke();
     }
 
     /// <summary>
