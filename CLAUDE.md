@@ -6,13 +6,14 @@ deben respetar. Ajusta los valores entre `<...>` a tu proyecto real.
 
 ## El equipo y quién decide
 - **Product Owner (tú, el humano)**: decides el juego, la historia, los
-  guiones y qué funcionalidades entran. Escribes o apruebas las historias,
-  revisas los Pull Requests y detectas cuándo algo no es como lo quieres.
-  **Ningún cambio se cierra sin tu aprobación.**
+  guiones y qué funcionalidades entran. Escribes o apruebas las historias y
+  detectas cuándo algo no es como lo quieres. **Las decisiones de visión son
+  tuyas y solo tuyas**, pero el trabajo técnico ya no espera tu firma: qa
+  mergea lo que aprueba (ver "Quién mergea").
 - **scrum-master**: orquesta el sprint y respeta tus compuertas de aprobación.
 - **disenador**: redacta borradores de GDD/historias para que tú los apruebes.
 - **programador-csharp**: implementa en Unity, trabaja en ramas y abre PRs.
-- **qa**: valida errores técnicos antes de que un PR llegue a ti.
+- **qa**: valida errores técnicos y **mergea a `main`** lo que aprueba.
 - **artista**: gestiona sprites, materiales y prefabs.
 
 ## Datos del proyecto
@@ -43,16 +44,28 @@ deben respetar. Ajusta los valores entre `<...>` a tu proyecto real.
    **conversar con el programador** las veces que haga falta (ida y vuelta).
    - **Falla** (error de consola, criterio incumplido, regresión) → pide cambios
      en el PR o abre un `bug`; el dev corrige en la misma rama y qa revuelve.
-   - **Pasa** → qa comenta **"✅ Aprobado por QA"** y pone el label `qa-approved`.
-     Ese es el **gate**: sin "Aprobado por QA" el PO no revisa.
-6. **Solo con "Aprobado por QA", tú (PO) haces la prueba final** en Play mode y
-   apruebas o pides cambios. Solo con tu aprobación se mergea y se cierra el issue.
+   - **Pasa** → qa comenta **"✅ Aprobado por QA"**, pone el label `qa-approved`
+     y **mergea el PR a `main`**, cerrando el issue con el `Closes #n`.
+6. **Quién mergea:** por defecto **mergea qa**, sin esperar al PO. El PO no es
+   un paso obligatorio del ciclo: revisa cuando quiere y siempre puede pedir
+   cambios después, en un issue nuevo.
+   **Excepciones — qa NO mergea y le pregunta al PO** cuando:
+   - **Falta una definición de diseño**: el criterio del ticket es ambiguo, o
+     cumplirlo obliga a decidir algo de la visión del juego (cómo se siente,
+     cómo se ve, qué es "suficiente"). Los agentes no deciden la visión.
+   - El PR **cambia algo que el PO ya había aprobado** (arte, controles,
+     balance, textos) o toca la identidad del juego.
+   - qa **no pudo verificar** un criterio y ese criterio es la razón de ser del
+     ticket. Aprobar a ciegas está prohibido: se dice qué no se pudo probar.
+   En esas excepciones qa deja `qa-approved`, **no mergea**, y menciona al PO en
+   el PR explicando exactamente qué decisión necesita.
 7. **Comunicación con el PO:** si qa o el programador tienen dudas de diseño o
    necesitan una decisión tuya, te preguntan **en un comentario del PR/issue de
    GitHub** (te mencionan). No deciden la visión del juego por su cuenta.
 
-**Regla del gate:** el orden es siempre *dev (autopruebas) → qa (Aprobado por QA)
-→ PO (prueba final)*. Nada salta el paso de qa.
+**Regla del gate:** el orden es siempre *dev (autopruebas) → qa (Aprobado por QA
+y merge)*. **Nada salta el paso de qa**, y qa nunca revisa su propio trabajo.
+El PO entra cuando hace falta una decisión de diseño, no en cada PR.
 
 ### Convenciones de comentarios y evidencia (trazabilidad)
 - **Tarjeta de rol al inicio (Salto Games).** Cada comentario de un agente empieza con su
