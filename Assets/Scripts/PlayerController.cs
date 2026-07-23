@@ -36,6 +36,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     private Rigidbody2D rb;
+    private AtaqueEspada ataque;
     private float direccionHorizontal;
     private bool saltoSolicitado;
 
@@ -56,6 +57,9 @@ public class PlayerController : NetworkBehaviour
     /// <summary>True si el personaje mira hacia la derecha (lo necesita el ataque direccional de la E3).</summary>
     public bool MiraDerecha => miraDerecha.Value;
 
+    /// <summary>Direccion horizontal mantenida (-1, 0, 1); la usa el ataque en el aire (E3).</summary>
+    public float DireccionHorizontal => direccionHorizontal;
+
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
     // Estado de las teclas de direccion para no pisar el movimiento tactil:
     // solo se dispara Mover/DetenerMovimiento en los flancos de tecla, igual
@@ -67,6 +71,7 @@ public class PlayerController : NetworkBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        ataque = GetComponent<AtaqueEspada>();
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -151,6 +156,12 @@ public class PlayerController : NetworkBehaviour
         {
             Saltar();
         }
+
+        // Tecla de ataque para pruebas de desarrollo (J o Ctrl izquierdo).
+        if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            Atacar();
+        }
     }
 #endif
 
@@ -205,6 +216,14 @@ public class PlayerController : NetworkBehaviour
         {
             saltoSolicitado = true;
         }
+    }
+
+    /// <summary>Reenvia el ataque al componente AtaqueEspada (E3, #65); sin efecto si no hay.</summary>
+    public void Atacar()
+    {
+        if (!IsOwner) return;
+
+        ataque?.Atacar();
     }
 
     // === Deteccion de suelo por conteo de contactos (sin capas ni referencias) ===

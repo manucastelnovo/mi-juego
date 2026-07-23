@@ -46,7 +46,7 @@ public class BotonDireccion : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             case Accion.Izquierda: jugadorLocal.Mover(-1f); break;
             case Accion.Derecha:   jugadorLocal.Mover(1f);  break;
             case Accion.Saltar:    jugadorLocal.Saltar();   break;
-            case Accion.Atacar:    break; // Se implementa en la E3.
+            case Accion.Atacar:    jugadorLocal.Atacar();  break;
         }
     }
 
