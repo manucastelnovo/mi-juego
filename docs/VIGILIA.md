@@ -137,6 +137,7 @@ Todo lo de arriba es **el juego terminado**, no lo que hay instalado hoy. El des
 - La arena con su suelo y sus plataformas.
 - La pantalla de inicio con CREAR SALA y BUSCAR SALA.
 - **Crear una sala** y que te muestre el código.
+- **Entrar a una sala escribiendo el código** de un amigo, ver quién la creó y cuántos hay.
 - Que los jugadores conectados estén en la misma arena, cada uno con su cámara siguiendo a su personaje.
 
 **Todavía NO existe:**
@@ -147,7 +148,7 @@ Todo lo de arriba es **el juego terminado**, no lo que hay instalado hoy. El des
 - **El jefe**, la victoria y la derrota.
 - **La vida, quedarse caído y revivir.** Hoy las monedas suman al contador, todavía no curan.
 - **Las armas** que dropean los enemigos.
-- **Entrar a una sala escribiendo el código** — está en desarrollo ahora mismo.
+- **La sala de espera con la lista de jugadores en vivo** y **empezar la partida** — en desarrollo ahora mismo.
 - El arte oscuro definitivo, las animaciones, la música y los efectos.
 
-En criollo: **hoy se puede correr, saltar y juntar monedas en la arena, y ya se puede crear una sala.** Es un buen momento para probar que la conexión funciona, no para prometer una partida completa.
+En criollo: **hoy se puede correr, saltar y juntar monedas en la arena, y el circuito de salas online ya funciona de punta a punta: uno crea, pasa el código y el otro entra.** Es un buen momento para probar que la conexión funciona entre dos celulares, no para prometer una partida completa.
