@@ -28,6 +28,9 @@ public class SaludJugador : NetworkBehaviour
     /// <summary>El jugador local llego a 0 de vida (el estado caido va en #68).</summary>
     public static event Action AlQuedarSinVida;
 
+    /// <summary>Solo en el host: el jugador llego a 0 de vida. Lo usa EstadoCaido (#68) para marcar el caido.</summary>
+    public event Action AlCaerServidor;
+
     [Header("Balance (visible desde el Inspector)")]
     [Tooltip("Puntos de vida al aparecer y tope maximo.")]
     [SerializeField] private int vidaMaxima = 5;
@@ -43,6 +46,7 @@ public class SaludJugador : NetworkBehaviour
         0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     private SpriteRenderer spriteRenderer;
+    private EstadoCaido estadoCaido;
     private Coroutine rutinaParpadeo;
 
     // Solo en el host: momento (Time.time) hasta el que el jugador es invulnerable.
@@ -60,6 +64,7 @@ public class SaludJugador : NetworkBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        estadoCaido = GetComponent<EstadoCaido>();
     }
 
     public override void OnNetworkSpawn()
@@ -95,6 +100,9 @@ public class SaludJugador : NetworkBehaviour
         if (cantidad <= 0) return;
         if (vidaActual.Value <= 0) return;
 
+        // Un jugador caido no recibe mas dano (#68).
+        if (estadoCaido != null && estadoCaido.EstaCaido) return;
+
         // Durante la ventana de invulnerabilidad, los golpes no restan.
         if (Time.time < invulnerableHasta) return;
 
@@ -117,10 +125,25 @@ public class SaludJugador : NetworkBehaviour
             IniciarParpadeo();
         }
 
-        if (nueva <= 0 && anterior > 0 && IsOwner)
+        if (nueva <= 0 && anterior > 0)
         {
-            AlQuedarSinVida?.Invoke();
+            // El dueno avisa a su HUD; el host marca el estado caido (#68).
+            if (IsOwner) AlQuedarSinVida?.Invoke();
+            if (IsServer) AlCaerServidor?.Invoke();
         }
+    }
+
+    /// <summary>
+    /// Revive al jugador con la mitad de la vida (E3, #68). SOLO en el host.
+    /// Lo llama EstadoCaido cuando un companero completa el revivir.
+    /// </summary>
+    public void RevivirServidor()
+    {
+        if (!IsServer) return;
+
+        // Mitad de la vida maxima, redondeando hacia arriba (5 -> 3).
+        vidaActual.Value = Mathf.Max(1, Mathf.CeilToInt(vidaMaxima / 2f));
+        invulnerableHasta = Time.time + segundosInvulnerable;
     }
 
     private void IniciarParpadeo()

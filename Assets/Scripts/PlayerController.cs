@@ -37,8 +37,12 @@ public class PlayerController : NetworkBehaviour
 
     private Rigidbody2D rb;
     private AtaqueEspada ataque;
+    private EstadoCaido estadoCaido;
     private float direccionHorizontal;
     private bool saltoSolicitado;
+
+    // True mientras el jugador esta caido: no se mueve, ni salta, ni ataca (#68).
+    private bool Caido => estadoCaido != null && estadoCaido.EstaCaido;
 
     // Colliders que actualmente hacen contacto de suelo (normal hacia arriba).
     // Contar contactos en vez de un booleano evita que un roce con otro
@@ -72,6 +76,7 @@ public class PlayerController : NetworkBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         ataque = GetComponent<AtaqueEspada>();
+        estadoCaido = GetComponent<EstadoCaido>();
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -171,6 +176,15 @@ public class PlayerController : NetworkBehaviour
         // clientes la posicion llega sincronizada por NetworkTransform.
         if (!IsOwner) return;
 
+        // Caido: se queda quieto (deja que la gravedad lo mantenga en el suelo).
+        if (Caido)
+        {
+            direccionHorizontal = 0f;
+            saltoSolicitado = false;
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            return;
+        }
+
         // Movimiento horizontal conservando la velocidad vertical.
         rb.linearVelocity = new Vector2(direccionHorizontal * velocidad, rb.linearVelocity.y);
 
@@ -191,6 +205,7 @@ public class PlayerController : NetworkBehaviour
     public void Mover(float direccion)
     {
         if (!IsOwner) return;
+        if (Caido) return;
 
         direccionHorizontal = Mathf.Clamp(direccion, -1f, 1f);
         if (direccionHorizontal != 0f)
@@ -211,6 +226,7 @@ public class PlayerController : NetworkBehaviour
     public void Saltar()
     {
         if (!IsOwner) return;
+        if (Caido) return;
 
         if (EstaEnSuelo)
         {
@@ -222,6 +238,7 @@ public class PlayerController : NetworkBehaviour
     public void Atacar()
     {
         if (!IsOwner) return;
+        if (Caido) return;
 
         ataque?.Atacar();
     }
