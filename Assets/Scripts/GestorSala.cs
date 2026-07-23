@@ -1,9 +1,10 @@
 using System;
+using System.Linq;
 using Unity.Services.Multiplayer;
 using UnityEngine;
 
 /// <summary>
-/// Crea la sala como host usando el servicio de Multiplayer de Unity (Lobby +
+/// Crea o busca la sala usando el servicio de Multiplayer de Unity (Lobby +
 /// Relay). El codigo para invitar amigos lo genera el servicio: esta clase
 /// solo lo pide y lo expone. Sigue el mismo patron que GestorRed: sobrevive a
 /// los cambios de escena y avisa por eventos estaticos, la UI escucha sin
@@ -24,8 +25,23 @@ public class GestorSala : MonoBehaviour
     /// <summary>Se dispara si la creacion fallo, con un motivo legible.</summary>
     public static event Action<string> AlFallarCreacion;
 
+    /// <summary>Se dispara al empezar a buscar una sala por codigo (para avisar "buscando...").</summary>
+    public static event Action AlEmpezarBusqueda;
+
+    /// <summary>Se dispara cuando se encontro la sala. El cliente ya quedo conectado a ella.</summary>
+    public static event Action<InfoSalaEncontrada> AlEncontrarSala;
+
+    /// <summary>Se dispara si la busqueda/entrada fallo, con un motivo legible.</summary>
+    public static event Action<string> AlFallarBusqueda;
+
+    /// <summary>Se dispara cuando el jugador confirma que quiere entrar a la sala ya encontrada.</summary>
+    public static event Action<string> AlEntrarSala;
+
     /// <summary>La sesion activa como host, una vez creada. Null si todavia no hay sala.</summary>
     public IHostSession SesionActual { get; private set; }
+
+    /// <summary>La sesion a la que nos unimos como cliente. Null si todavia no encontramos ninguna.</summary>
+    public ISession SesionUnida { get; private set; }
 
     private void Awake()
     {
@@ -75,11 +91,117 @@ public class GestorSala : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Busca una sala por codigo y se une a ella como cliente (no hay forma de
+    /// "solo mirar" una sala privada sin unirse: el propio servicio de Lobby
+    /// valida existencia y cupo al unirse). Si encuentra la sala, el resultado
+    /// llega por AlEncontrarSala con el host y la cantidad de jugadores; si
+    /// no, por AlFallarBusqueda con un motivo legible. Es seguro reintentar
+    /// tras un fallo.
+    /// </summary>
+    public async void BuscarSala(string codigoIngresado)
+    {
+        AlEmpezarBusqueda?.Invoke();
+
+        string codigo = LimpiarCodigo(codigoIngresado);
+        if (string.IsNullOrEmpty(codigo))
+        {
+            AlFallarBusqueda?.Invoke("Escribi un codigo primero.");
+            return;
+        }
+
+        try
+        {
+            ISession sesion = await MultiplayerService.Instance.JoinSessionByCodeAsync(codigo);
+            SesionUnida = sesion;
+
+            Debug.Log($"[Sala] Sala encontrada. Host: {sesion.Host}, jugadores: {sesion.PlayerCount}/{sesion.MaxPlayers}");
+            AlEncontrarSala?.Invoke(new InfoSalaEncontrada(sesion.Host, sesion.PlayerCount, sesion.MaxPlayers));
+        }
+        catch (SessionException e)
+        {
+            Debug.LogError($"[Sala] No se pudo entrar a la sala '{codigo}': {e.Message}");
+            AlFallarBusqueda?.Invoke(MensajeParaFalloDeBusqueda(e));
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[Sala] Error inesperado buscando la sala: {e.Message}");
+            AlFallarBusqueda?.Invoke("Ocurrio un error. Intenta de nuevo.");
+        }
+    }
+
+    /// <summary>
+    /// Confirma la entrada a la sala ya encontrada (el jugador ya esta
+    /// conectado como cliente desde BuscarSala; esto solo avisa a la UI que
+    /// pase a la sala de espera). La lista de jugadores en vivo es la
+    /// historia #40 y el boton EMPEZAR la #41.
+    /// </summary>
+    public void ConfirmarEntrada()
+    {
+        if (SesionUnida == null) return;
+        AlEntrarSala?.Invoke(SesionUnida.Code);
+    }
+
+    /// <summary>
+    /// Deja el codigo pegado listo para buscar: sin espacios (incluidos los
+    /// que quedan pegados por copiar/pegar desde un chat) y en mayusculas,
+    /// que es como el servicio genera los codigos.
+    /// </summary>
+    private static string LimpiarCodigo(string codigoIngresado)
+    {
+        if (string.IsNullOrEmpty(codigoIngresado)) return string.Empty;
+        return new string(codigoIngresado.Where(c => !char.IsWhiteSpace(c)).ToArray()).ToUpperInvariant();
+    }
+
+    /// <summary>
+    /// El SDK no distingue "sala llena" con un error propio: la mapea junto a
+    /// otros casos como SessionError.Unknown, con el detalle solo en el
+    /// mensaje. Por eso se revisa el texto para dar un aviso claro en los
+    /// casos mas comunes (llena, codigo invalido) y un mensaje generico en el resto.
+    /// </summary>
+    private static string MensajeParaFalloDeBusqueda(SessionException e)
+    {
+        if (e.Error == SessionError.SessionNotFound)
+        {
+            return "No encontramos esa sala. Revisa el codigo e intenta de nuevo.";
+        }
+
+        string mensaje = e.Message ?? string.Empty;
+        if (mensaje.IndexOf("full", StringComparison.OrdinalIgnoreCase) >= 0)
+        {
+            return "Esa sala ya esta completa (4/4). Pedile otro codigo a tu amigo.";
+        }
+
+        if (mensaje.IndexOf("join code", StringComparison.OrdinalIgnoreCase) >= 0
+            || mensaje.IndexOf("not found", StringComparison.OrdinalIgnoreCase) >= 0)
+        {
+            return "No encontramos esa sala. Revisa el codigo e intenta de nuevo.";
+        }
+
+        return "No se pudo entrar a la sala. Intenta de nuevo.";
+    }
+
     private void OnDestroy()
     {
         if (Instancia == this)
         {
             Instancia = null;
         }
+    }
+}
+
+/// <summary>Datos minimos de una sala encontrada para mostrarlos antes de entrar.</summary>
+public readonly struct InfoSalaEncontrada
+{
+    /// <summary>Id del jugador que la creo (todavia no hay apodos, historia futura).</summary>
+    public string HostId { get; }
+    public int JugadoresActuales { get; }
+    public int JugadoresMaximos { get; }
+
+    public InfoSalaEncontrada(string hostId, int jugadoresActuales, int jugadoresMaximos)
+    {
+        HostId = hostId;
+        JugadoresActuales = jugadoresActuales;
+        JugadoresMaximos = jugadoresMaximos;
     }
 }

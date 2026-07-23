@@ -14,6 +14,7 @@ public class MenuInicio : MonoBehaviour
     [SerializeField] private Button botonCrearSala;
     [SerializeField] private Button botonBuscarSala;
     [SerializeField] private Text textoEstado;
+    [SerializeField] private GameObject panelBuscarSala;
 
     // Animacion simple de puntos mientras se crea la sala, para que se vea
     // que algo esta pasando y la pantalla no parezca congelada.
@@ -124,9 +125,9 @@ public class MenuInicio : MonoBehaviour
         }
     }
 
-    /// <summary>Enganche de BUSCAR SALA. El flujo real lo implementa la historia #39.</summary>
+    /// <summary>Enganche de BUSCAR SALA: abre el panel para escribir el codigo (historia #39).</summary>
     public void OnBuscarSala()
     {
-        Debug.Log("[Menu] BUSCAR SALA presionado. Flujo pendiente: historia #39.");
+        if (panelBuscarSala != null) panelBuscarSala.SetActive(true);
     }
 }
