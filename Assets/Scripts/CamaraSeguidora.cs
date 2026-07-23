@@ -14,13 +14,14 @@ public class CamaraSeguidora : MonoBehaviour
     [SerializeField] private float tiempoSuavizado = 0.15f;
 
     // Limites de la arena en X, para que la camara nunca muestre el vacio
-    // fuera del nivel. Los valores reales los define la historia #35 (arena
-    // ancha); por ahora quedan desactivados para no inventar un tamaño de
-    // arena que todavia no existe.
-    [Header("Limites de la arena (los define #35)")]
-    [SerializeField] private bool usarLimites = false;
-    [SerializeField] private float limiteMinX = 0f;
-    [SerializeField] private float limiteMaxX = 0f;
+    // fuera del nivel. Arena de ~2,5 pantallas (52 u de piso, de -26 a 26);
+    // con la camara ortografica en 5.77 y aspecto 16:9 el semiancho visible
+    // es 5.77*16/9 = 10.26 u, asi que el centro de camara puede llegar hasta
+    // 26 - 10.26 = 15.74 u de cada borde sin mostrar el vacio (historia #35).
+    [Header("Limites de la arena (definidos por #35)")]
+    [SerializeField] private bool usarLimites = true;
+    [SerializeField] private float limiteMinX = -15.74f;
+    [SerializeField] private float limiteMaxX = 15.74f;
 
     private PlayerController jugadorLocal;
     private float velocidadActualX;
