@@ -42,15 +42,26 @@ repito aca porque ese brief todavia no lo aprobo el PO y la lista puede
 cambiar. Cuando se produzcan, se agregan a esta tabla siguiendo el mismo
 formato.
 
+**Inconsistencia a tener en cuenta - tamano de la Moneda:** el brief de #70
+propone la Moneda en **32x32 px**, pero el `Coin.png` que existe hoy en el
+repo mide **64x64 px** (el doble). Si el dia de manana se produce la moneda
+segun el brief a 32x32 px y se la importa con PPU 64 sin ajustar nada mas, va
+a ocupar la mitad del tamano en el mundo que la moneda actual (0.5x0.5
+unidades en vez de 1x1), y el collider de `Coin.prefab` (radio 0.5, ver
+seccion 4) le va a quedar grande. Antes de reemplazarla, decidir si el
+tamano final es 32x32 (y achicar el collider a la mitad) o si se mantiene
+64x64 (y se avisa que el brief quedo desactualizado en ese punto).
+
 ### PPU: 64, unico para todo el juego
 
 Los cuatro coinciden en 64 PPU, y es el mismo valor que propone el brief de
 arte aprobado en #70. Por que tiene que ser uno solo para todo el juego?
-Porque 1 unidad de mundo en Unity equivale a 64 pixeles de sprite: la camara
-(orthographic size: 5), la velocidad del jugador, la altura del salto y el
-tamano de los colliders estan todos calibrados asumiendo esa equivalencia. Si
-un sprite nuevo usa otro PPU, se ve mas grande o mas chico que el resto sin
-que cambies ningun numero a proposito.
+Porque 1 unidad de mundo en Unity equivale a 64 pixeles de sprite: la
+velocidad del jugador, la altura del salto y el tamano de los colliders
+estan todos calibrados asumiendo esa equivalencia. Si un sprite nuevo usa
+otro PPU, se ve mas grande o mas chico que el resto sin que cambies ningun
+numero a proposito. (El encuadre de la Main Camera es un tema aparte, ver
+nota al final de esta seccion.)
 
 Si un asset descargado viene en otra resolucion (por ejemplo, un pack de
 128x128 px por sprite): al importarlo a Assets/Art/Sprites/, abri su
@@ -67,17 +78,23 @@ espacio, hay que ponerle 128 PPU a ese sprite en particular. No hace falta
 cambiar el PPU de los demas: cada .png tiene su propio ajuste de importacion
 independiente, siempre que el resultado en unidades de mundo sea el mismo.
 
+**Nota sobre la camara (no confundir con lo de arriba):** la Main Camera de
+`Game.unity` hoy esta en modo **perspectiva** (`orthographic: 0`, field of
+view: 60), no ortografica - el campo `orthographic size: 5` existe en la
+escena pero no se usa mientras la camara este en perspectiva. Este documento
+no cubre como calibrar el encuadre; el tema esta anotado en el **issue #97**.
+
 ---
 
 ## 3. Como reemplazar el arte de algo sin romper nada
 
 Cada objeto visual es un SpriteRenderer con el sprite asignado a mano en
-el Inspector, no por codigo. Lo confirme leyendo los cuatro scripts de
-Assets/Scripts/: ninguno usa Resources.Load ni busca un sprite por nombre
-de archivo. El unico script que toca un SpriteRenderer (PlayerController.cs)
-lo hace por referencia serializada ([SerializeField] private SpriteRenderer
-spriteRenderer) o GetComponent<SpriteRenderer>(), y solo para voltearlo
-(flipX) al cambiar de direccion - nunca para cambiar que imagen muestra.
+el Inspector, no por codigo. Lo confirme leyendo los cinco scripts de
+Assets/Scripts/ (BotonDireccion.cs, ContadorMonedas.cs, GestorRed.cs,
+Moneda.cs, PlayerController.cs): ninguno usa Resources.Load, ninguno busca
+un sprite por nombre de archivo, y ninguno menciona siquiera la clase
+SpriteRenderer hoy (no hay flip de sprite ni ningun otro manejo de sprite
+por codigo en `main` en este momento).
 
 Que significa esto para vos: para reemplazar un dibujo,
 
@@ -152,7 +169,7 @@ Inspector del .png, con Texture Type: Sprite (2D and UI)):
 | Filter Mode | Point (no filter) | Con arte flat/cartoon sin degrades finos, el filtrado bilineal solo difumina bordes y gasta GPU sin mejorar nada. Mantenelo en Point salvo que el estilo nuevo tenga gradientes suaves que se vean mejor con Bilinear. |
 | Compresion (Android, Standalone, etc.) | Compressed (calidad Normal, sin override especifico por plataforma) | Reduce memoria de video y tiempo de carga en celulares de gama media. No lo cambies a None/RGBA32 salvo que veas artefactos de color visibles - ahi conviene revisar caso por caso, no desactivar compresion para todo el proyecto. |
 | Max Size | 2048 | Ningun sprite actual se acerca a ese tamano (todos <= 64x64 px); dejalo asi, no hace falta subirlo para arte 2D chico. |
-| Mip Maps | Desactivado en Player, Ground, Platform; activado en Coin (inconsistencia existente, no corregida en esta guia) | La camara es ortografica fija y los sprites nunca se alejan en profundidad, asi que los mipmaps no aportan nada y solo ocupan memoria extra. Para assets nuevos, dejar Mip Maps desactivado, salvo que el diseno cambie a una camara con zoom/profundidad variable. |
+| Mip Maps | Desactivado en Player, Ground, Platform; activado en Coin (inconsistencia existente, no corregida en esta guia) | Los sprites nunca se alejan en profundidad respecto de la camara, asi que los mipmaps no aportan nada y solo ocupan memoria extra (mas alla del modo de camara - ver nota sobre la camara en la seccion 2 e issue #97). Para assets nuevos, dejar Mip Maps desactivado, salvo que el diseno cambie eso. |
 | Pivot | Centro (0.5, 0.5) en los cuatro | Mantenelo centrado salvo que el brief de un sprite puntual pida otra cosa (ver Sprite Border/pivot en el brief aprobado en #70 si aplica). |
 
 Al importar un asset nuevo o de un pack de internet:
