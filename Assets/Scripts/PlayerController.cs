@@ -1,19 +1,26 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 /// <summary>
 /// Movimiento del personaje: desplazamiento horizontal y salto con
-/// deteccion de suelo. Se controla desde los botones tactiles en pantalla
-/// (ver BotonDireccion), que llaman a los metodos publicos Mover/Saltar/
-/// DetenerMovimiento. En el editor o en builds de desarrollo tambien acepta
-/// teclado (ver LeerInputTeclado), solo como ayuda de pruebas.
+/// deteccion de suelo. Es un objeto de red (NetworkBehaviour): cada jugador
+/// tiene autoridad sobre su propio movimiento (no espera al host) y el
+/// script solo procesa input si este cliente es el dueno del objeto. Se
+/// controla desde los botones tactiles en pantalla (ver BotonDireccion),
+/// que llaman a los metodos publicos Mover/Saltar/DetenerMovimiento. En el
+/// editor o en builds de desarrollo tambien acepta teclado (ver
+/// LeerInputTeclado), solo como ayuda de pruebas.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     [Header("Movimiento")]
     [SerializeField] private float velocidad = 6f;
     [SerializeField] private float fuerzaSalto = 12f;
+
+    [Header("Sprite")]
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     private Rigidbody2D rb;
     private float direccionHorizontal;
@@ -27,6 +34,15 @@ public class PlayerController : MonoBehaviour
     /// <summary>Indica si el personaje esta apoyado en el suelo (lo necesita el ataque contextual de la E3).</summary>
     public bool EstaEnSuelo => contactosSuelo.Count > 0;
 
+    // Hacia donde mira el personaje. Se sincroniza para que todos los
+    // clientes vean el mismo flip de sprite (lo necesita el ataque
+    // direccional de la E3). Solo el dueno la puede escribir.
+    private readonly NetworkVariable<bool> miraDerecha = new NetworkVariable<bool>(
+        true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
+    /// <summary>True si el personaje mira hacia la derecha (lo necesita el ataque direccional de la E3).</summary>
+    public bool MiraDerecha => miraDerecha.Value;
+
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
     // Estado de las teclas de direccion para no pisar el movimiento tactil:
     // solo se dispara Mover/DetenerMovimiento en los flancos de tecla, igual
@@ -38,11 +54,41 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        AplicarFlip(miraDerecha.Value);
+        miraDerecha.OnValueChanged += AlCambiarMiraDerecha;
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        miraDerecha.OnValueChanged -= AlCambiarMiraDerecha;
+    }
+
+    private void AlCambiarMiraDerecha(bool anterior, bool nueva)
+    {
+        AplicarFlip(nueva);
+    }
+
+    private void AplicarFlip(bool derecha)
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.flipX = !derecha;
+        }
     }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
     private void Update()
     {
+        // Solo el dueno del objeto procesa su propio input.
+        if (!IsOwner) return;
         LeerInputTeclado();
     }
 
@@ -81,6 +127,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // La fisica del movimiento solo la simula el dueno: en los demas
+        // clientes la posicion llega sincronizada por NetworkTransform.
+        if (!IsOwner) return;
+
         // Movimiento horizontal conservando la velocidad vertical.
         rb.linearVelocity = new Vector2(direccionHorizontal * velocidad, rb.linearVelocity.y);
 
@@ -93,22 +143,35 @@ public class PlayerController : MonoBehaviour
     }
 
     // === API publica para los controles tactiles (#4) ===
+    // Todas quedan sin efecto si quien las llama no es el dueno del objeto:
+    // asi, aunque un boton tactil encuentre al jugador equivocado (ver #31),
+    // nunca mueve al personaje de otro.
 
     /// <summary>Fija la direccion horizontal (-1 izquierda, 1 derecha, 0 quieto).</summary>
     public void Mover(float direccion)
     {
+        if (!IsOwner) return;
+
         direccionHorizontal = Mathf.Clamp(direccion, -1f, 1f);
+        if (direccionHorizontal != 0f)
+        {
+            miraDerecha.Value = direccionHorizontal > 0f;
+        }
     }
 
     /// <summary>Detiene el desplazamiento horizontal.</summary>
     public void DetenerMovimiento()
     {
+        if (!IsOwner) return;
+
         direccionHorizontal = 0f;
     }
 
     /// <summary>Solicita un salto; solo se ejecuta si el personaje esta en el suelo.</summary>
     public void Saltar()
     {
+        if (!IsOwner) return;
+
         if (EstaEnSuelo)
         {
             saltoSolicitado = true;
