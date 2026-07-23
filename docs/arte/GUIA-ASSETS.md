@@ -22,16 +22,27 @@ cambiar sprites.
 
 ---
 
-## 2. PPU (Pixels Per Unit): 64, unico para todo el juego
+## 2. Lista de sprites actuales: tamano, PPU, pivot y donde van
 
-Lo verifique en el .meta de cada sprite actual (campo spritePixelsToUnits):
+Lo verifique en el .meta de cada sprite actual (campo spritePixelsToUnits y
+spritePivot) y en Game.unity / Coin.prefab (donde se usa cada uno):
 
-| Sprite | Tamano real (px) | PPU en el .meta |
-|---|---|---|
-| Player.png | 64x64 | 64 |
-| Ground.png | 64x64 | 64 |
-| Platform.png | 64x32 | 64 |
-| Coin.png | 64x64 | 64 |
+| Sprite | Tamano real (px) | PPU en el .meta | Pivot | Donde va |
+|---|---|---|---|---|
+| Player.png | 64x64 | 64 | Centro (0.5, 0.5) | Objeto `Player`, suelto en `Assets/Scenes/Game.unity` (no tiene prefab propio hoy) |
+| Ground.png | 64x64 | 64 | Centro (0.5, 0.5) | Objeto `Ground`, suelto en `Assets/Scenes/Game.unity`, mostrado en modo Tiled |
+| Platform.png | 64x32 | 64 | Centro (0.5, 0.5) | Objetos `Platform_1` y `Platform_2`, sueltos en `Assets/Scenes/Game.unity`, mostrados en modo Tiled |
+| Coin.png | 64x64 | 64 | Centro (0.5, 0.5) | `Assets/Prefabs/Coin.prefab` |
+
+**Esta es la lista de lo que existe hoy en el repo, no la lista final del
+juego.** Los sprites que todavia faltan (enemigos, jefe, armas, proyectiles,
+4 variantes de color del jugador, fondo de arena) estan enumerados con sus
+tamanos y pivots propuestos en el **brief de arte aprobado en #70** — no los
+repito aca porque ese brief todavia no lo aprobo el PO y la lista puede
+cambiar. Cuando se produzcan, se agregan a esta tabla siguiendo el mismo
+formato.
+
+### PPU: 64, unico para todo el juego
 
 Los cuatro coinciden en 64 PPU, y es el mismo valor que propone el brief de
 arte aprobado en #70. Por que tiene que ser uno solo para todo el juego?
