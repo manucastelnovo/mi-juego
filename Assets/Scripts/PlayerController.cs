@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -15,6 +16,18 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : NetworkBehaviour
 {
+    // === Enganche para los controles tactiles (#31) ===
+    // Cada proceso (dispositivo/instancia) solo llega a tener IsOwner true en
+    // el PlayerController que le pertenece, asi que esta referencia estatica
+    // nunca mezcla el jugador de otro. Se avisa por evento (mismo patron que
+    // Moneda.AlRecoger/GestorRed.AlIniciarSesion): BotonDireccion escucha en
+    // vez de buscar por tag, y no necesita nada antes de OnNetworkSpawn.
+    /// <summary>Jugador local actual (el que pertenece a este dispositivo), o null si todavia no aparecio.</summary>
+    public static PlayerController JugadorLocal { get; private set; }
+
+    /// <summary>Se dispara cuando el jugador local aparece (con la instancia) o desaparece (con null).</summary>
+    public static event Action<PlayerController> AlCambiarJugadorLocal;
+
     [Header("Movimiento")]
     [SerializeField] private float velocidad = 6f;
     [SerializeField] private float fuerzaSalto = 12f;
@@ -64,11 +77,27 @@ public class PlayerController : NetworkBehaviour
     {
         AplicarFlip(miraDerecha.Value);
         miraDerecha.OnValueChanged += AlCambiarMiraDerecha;
+
+        // Solo el dueno de este objeto es "el jugador local" en este dispositivo.
+        if (IsOwner)
+        {
+            JugadorLocal = this;
+            AlCambiarJugadorLocal?.Invoke(this);
+            Debug.Log($"[Jugador] Jugador local listo (OwnerClientId {OwnerClientId}). Botones enganchados.");
+        }
     }
 
     public override void OnNetworkDespawn()
     {
         miraDerecha.OnValueChanged -= AlCambiarMiraDerecha;
+
+        // Si se desconecta (o se recicla) el jugador local, los botones se
+        // desenganchan hasta que la red instancie uno nuevo al reconectar.
+        if (IsOwner && JugadorLocal == this)
+        {
+            JugadorLocal = null;
+            AlCambiarJugadorLocal?.Invoke(null);
+        }
     }
 
     private void AlCambiarMiraDerecha(bool anterior, bool nueva)
