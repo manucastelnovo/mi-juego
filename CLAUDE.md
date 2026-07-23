@@ -194,7 +194,9 @@ logs.
 
 Labels de proceso (ciclo de QA):
 - `needs-qa` — el PR está listo y espera revisión de qa.
-- `qa-approved` — qa dio "✅ Aprobado por QA"; habilitado para la prueba final del PO.
+- `qa-approved` — qa dio "✅ Aprobado por QA". Normalmente qa mergea en el acto;
+  si el PR quedó con este label **sin mergear**, es porque qa necesita una
+  decisión del PO (ver "Quién mergea").
 
 ## Regla de oro
 Sprints cortos, PRs pequeños, incrementos jugables. Terminar y que el PO lo
