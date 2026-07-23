@@ -23,6 +23,12 @@ public class PantallaBuscarSala : MonoBehaviour
     private static readonly string[] PasosBuscando = { "Buscando sala.", "Buscando sala..", "Buscando sala..." };
     private Coroutine animacionBuscando;
 
+    // BuscarSala() ya une de verdad al jugador a la sala (el SDK no permite
+    // "solo mirar" una sala privada). Este flag distingue "encontre la sala y
+    // ya estoy adentro, esperando que confirme" de "todavia no busque nada" o
+    // "la busqueda fallo", para que VOLVER sepa si tiene que liberar el lugar.
+    private bool unidoSinConfirmar;
+
     private void OnEnable()
     {
         ReiniciarFormulario();
@@ -47,6 +53,7 @@ public class PantallaBuscarSala : MonoBehaviour
         if (grupoResultado != null) grupoResultado.SetActive(false);
         MostrarEstado(string.Empty);
         HabilitarBusqueda(true);
+        unidoSinConfirmar = false;
     }
 
     private void HabilitarBusqueda(bool interactuable)
@@ -78,13 +85,25 @@ public class PantallaBuscarSala : MonoBehaviour
     public void OnEntrar()
     {
         if (GestorSala.Instancia == null) return;
+        unidoSinConfirmar = false;
         GestorSala.Instancia.ConfirmarEntrada();
         gameObject.SetActive(false);
     }
 
-    /// <summary>Enganche del boton VOLVER: cierra este panel y vuelve al menu principal.</summary>
+    /// <summary>
+    /// Enganche del boton VOLVER: cierra este panel y vuelve al menu
+    /// principal. Si ya encontramos una sala (BuscarSala nos unio de verdad)
+    /// y no confirmamos la entrada, hay que liberar el lugar para no dejar
+    /// un jugador fantasma ocupando cupo en la sala del host.
+    /// </summary>
     public void OnVolver()
     {
+        if (unidoSinConfirmar && GestorSala.Instancia != null)
+        {
+            GestorSala.Instancia.SalirDeSala();
+        }
+
+        unidoSinConfirmar = false;
         gameObject.SetActive(false);
     }
 
@@ -99,6 +118,7 @@ public class PantallaBuscarSala : MonoBehaviour
     {
         DetenerAnimacionBuscando();
         MostrarEstado(string.Empty);
+        unidoSinConfirmar = true;
 
         if (grupoFormulario != null) grupoFormulario.SetActive(false);
         if (grupoResultado != null) grupoResultado.SetActive(true);
@@ -119,6 +139,7 @@ public class PantallaBuscarSala : MonoBehaviour
         DetenerAnimacionBuscando();
         MostrarEstado(motivo);
         HabilitarBusqueda(true);
+        unidoSinConfirmar = false;
     }
 
     private void DetenerAnimacionBuscando()
