@@ -61,6 +61,23 @@
   .acts td:nth-child(1){color:var(--gold);font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;}
   .acts td:nth-child(2){font-weight:600;white-space:nowrap;}
 
+  /* bestiario */
+  .mob{border:1px solid var(--line);border-radius:12px;padding:.95rem 1.1rem;margin:1rem 0;background:var(--night-2);}
+  .mob-head{display:flex;flex-wrap:wrap;gap:.5rem .8rem;align-items:baseline;}
+  .mob-head h3{margin:0;color:var(--gold-soft);font-size:1.14rem;}
+  .mob-head .order{font-size:.78rem;color:var(--muted-2);}
+  .dominio{display:inline-block;font-size:.7rem;color:var(--moss);font-weight:700;border:1px solid var(--moss);border-radius:999px;padding:.1em .55em;}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:.7rem 1.1rem;margin-top:.65rem;}
+  .half{border-left:2px solid var(--line);padding-left:.75rem;}
+  .half h5{margin:0 0 .25rem;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;}
+  .half.mito{border-left-color:var(--myth);}
+  .half.mito h5{color:var(--myth);}
+  .half.game{border-left-color:var(--inv);}
+  .half.game h5{color:var(--inv);}
+  .half p{margin:.2rem 0;font-size:.92rem;}
+  .rol{font-weight:700;color:var(--fg);}
+  @media (max-width:560px){ .split{grid-template-columns:1fr;} }
+
   .beat{display:grid;grid-template-columns:90px 1fr;gap:.2rem .9rem;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line);}
   .beat:last-child{border-bottom:0;}
   .beat dt{font-weight:700;color:var(--gold);font-size:.82rem;}
@@ -77,11 +94,11 @@
 
 <p class="kicker">Salto Games · Biblia narrativa · borrador</p>
 <h1 class="display"><em>Vigilia</em></h1>
-<p class="lead">Biblia narrativa del juego — la historia, el arco de oleadas y jefe, y el tono. Construida sobre la dirección aprobada por el PO y anclada al folclore guaraní documentado.</p>
+<p class="lead">Biblia narrativa del juego — la historia, el arco de oleadas y jefe, el tono y el bestiario. Construida sobre la dirección aprobada por el PO y anclada al folclore guaraní documentado.</p>
 
 <div class="box box-note">
 <h4>Estado y autoría</h4>
-<p style="margin:0 0 .4rem;">Este documento lo <strong>redactó Research</strong> a pedido del PO, para no frenar el trabajo. Formalmente la biblia es entregable del rol <strong>Narrativa</strong> (issue #121); esto es un <strong>borrador para tu revisión</strong> que narrativa/disenador pueden pulir sin arrancar de cero. Nada acá cambia tus decisiones: las traduce a historia.</p>
+<p style="margin:0 0 .4rem;">Este documento lo <strong>redactó Research</strong> a pedido del PO, para no frenar el trabajo. Formalmente la biblia es entregable del rol <strong>Narrativa</strong> (issue #121); esto es un <strong>borrador para tu revisión</strong> que narrativa/disenador pueden pulir sin arrancar de cero. Nada acá cambia tus decisiones: las traduce a historia y a bestiario.</p>
 </div>
 
 <p class="legend">
@@ -100,6 +117,7 @@
 <li><a href="#porasy">Porãsy — la voz</a></li>
 <li><a href="#heroes">Los protagonistas</a></li>
 <li><a href="#hermanos">Los siete — estructura de actos</a></li>
+<li><a href="#bestiario">Bestiario — los siete como enemigos</a></li>
 <li><a href="#actos">Los 7 actos, uno por uno</a></li>
 <li><a href="#pombero">El hilo secreto (Pombero)</a></li>
 <li><a href="#final">El final (Venus)</a></li>
@@ -175,8 +193,68 @@
 <p style="margin:0;"><span class="tag t-myth">MITO</span> En el relato, <strong>Moñái es el hermano que convoca a los siete</strong> — por eso Porãsy lo engaña <em>a él</em> para reunirlos a todos. <span class="tag t-inv">FICCIÓN DE JUEGO</span> Vigilia toma eso al pie de la letra: a lo largo de la noche descubrimos que los otros seis <strong>responden a Moñái</strong>, que está juntando a sus hermanos para algo. El clímax es cuando Porãsy usa esa misma reunión como trampa. Moñái no es el más fuerte del mito, pero es el <strong>nudo</strong>: derrotarlo es cerrar el círculo.</p>
 </div>
 
-<!-- 7 ACTOS -->
-<h2 id="actos">7 · Los 7 actos, uno por uno</h2>
+<!-- 7 BESTIARIO -->
+<h2 id="bestiario">7 · Bestiario — los siete como enemigos</h2>
+<p>Cada criatura, con su <strong>ficha del mito</strong> (lo documentado) y su <strong>traducción a enemigo</strong> (rol + fantasía de combate). <span class="tag t-myth">MITO</span> = del folclore; <span class="tag t-inv">FICCIÓN DE JUEGO</span> = propuesta de diseño de combate a validar. Los roles están <strong>reconciliados con tu decisión</strong> (Moñái = jefe final; Luisón = sub-jefe más duro del Acto 6).</p>
+
+<div class="mob">
+  <div class="mob-head"><h3>Teju Jagua</h3><span class="order">Acto 1 · MVP · "lagarto-perro"</span> <span class="dominio">Dominio: cuevas y frutas</span></div>
+  <div class="split">
+    <div class="half mito"><h5>Del mito</h5><p>Lagarto enorme con <strong>siete cabezas de perro</strong> cuyos ojos lanzan fuego. Imponente pero <strong>torpe e inofensivo</strong>: no usa su fuerza, come frutas y miel. Guarda las cuevas.</p></div>
+    <div class="half game"><h5>En Vigilia</h5><p class="rol">Mini-jefe / tanque lento.</p><p>Siete cabezas = <strong>siete puntos débiles</strong>; ojos de fuego como ataque a distancia. Torpe pero duro. Primer jefe: enseña a leer patrones sin frustrar.</p></div>
+  </div>
+</div>
+
+<div class="mob">
+  <div class="mob-head"><h3>Mbói Tu'ĩ</h3><span class="order">Acto 3 · "serpiente-loro"</span> <span class="dominio">Dominio: esteros y agua</span></div>
+  <div class="split">
+    <div class="half mito"><h5>Del mito</h5><p>Serpiente gigante con <strong>cabeza de loro</strong> de pico descomunal, plumas y lengua bífida roja. <strong>Grito aterrador</strong> que se oye lejos. Protector de humedales y vida acuática.</p></div>
+    <div class="half game"><h5>En Vigilia</h5><p class="rol">Enemigo de zona de agua.</p><p>Grito que <strong>aturde/alerta</strong> (buff a la oleada); ataca desde los esteros. Control de área acuática.</p></div>
+  </div>
+</div>
+
+<div class="mob">
+  <div class="mob-head"><h3>Moñái</h3><span class="order">Acto 7 · JEFE FINAL</span> <span class="dominio">Dominio: campos, aire y aves</span></div>
+  <div class="split">
+    <div class="half mito"><h5>Del mito</h5><p>Serpiente enorme con <strong>dos cuernos-antenas iridiscentes</strong>; hipnotiza aves; ladrón de cosechas. <strong>El que reúne a los siete</strong> (por eso Porãsy lo engaña a él).</p></div>
+    <div class="half game"><h5>En Vigilia</h5><p class="rol">Jefe final (decisión del PO).</p><p>Antenas que <strong>hipnotizan</strong> (invierten controles / atraen jugadores); roba recursos; combina mecánicas de los hermanos anteriores. <span class="tag t-sug">nota</span> en el informe original figuraba como "jefe de oleada aérea/ladrón"; el PO lo elevó a jefe final.</p></div>
+  </div>
+</div>
+
+<div class="mob">
+  <div class="mob-head"><h3>Jasy Jateré</h3><span class="order">Acto 2 · "pedacito de luna"</span> <span class="dominio">Dominio: la siesta, el monte a mediodía</span></div>
+  <div class="split">
+    <div class="half mito"><h5>Del mito</h5><p>Niño hermoso de <strong>cabellos dorados</strong>, desnudo, con un <strong>bastón de oro</strong> donde viven sus poderes. Silbido hipnótico con el que <strong>rapta niños</strong>. Único con forma humana.</p></div>
+    <div class="half game"><h5>En Vigilia</h5><p class="rol">Enemigo de control / "encantador".</p><p>Silbido que <strong>atrae/aísla a un jugador</strong> del grupo (separa al equipo). Veloz, esquivo, poco resistente.</p></div>
+  </div>
+</div>
+
+<div class="mob">
+  <div class="mob-head"><h3>Kurupí</h3><span class="order">Acto 4</span> <span class="dominio">Dominio: bosque y fertilidad</span></div>
+  <div class="split">
+    <div class="half mito"><h5>Del mito</h5><p>Enano robusto y peludo, <strong>pies al revés</strong>, con un falo larguísimo enrollado a la cintura (mito fálico / de fertilidad). Habita huecos de árboles.</p></div>
+    <div class="half game"><h5>En Vigilia</h5><p class="rol">Enemigo de agarre (versión suavizada).</p><p><strong>Lazo/liana</strong> que engancha y arrastra jugadores a distancia — <strong>sin el rasgo sexual explícito</strong> (decisión del PO: "real pero sutil"). Rápido, de bosque.</p></div>
+  </div>
+</div>
+
+<div class="mob">
+  <div class="mob-head"><h3>Ao Ao</h3><span class="order">Acto 5</span> <span class="dominio">Dominio: cerros y montañas</span></div>
+  <div class="split">
+    <div class="half mito"><h5>Del mito</h5><p>Bestia parecida a una <strong>oveja/carnero con cabeza de jabalí</strong>, colmillos, fuerza descomunal. Vive y caza <strong>en manada</strong>; devora. Se escapa de él trepando a la <strong>palmera pindó</strong> (sagrada).</p></div>
+    <div class="half game"><h5>En Vigilia</h5><p class="rol">Enemigo de horda / "pack".</p><p>Aparece en manada, <strong>persecución implacable</strong> ("¡Ao! ¡Ao!"). Zona segura = <strong>palmera pindó</strong> como mecánica de refugio.</p></div>
+  </div>
+</div>
+
+<div class="mob">
+  <div class="mob-head"><h3>Luisón</h3><span class="order">Acto 6 · sub-jefe más duro</span> <span class="dominio">Dominio: la muerte, los cementerios, la noche</span></div>
+  <div class="split">
+    <div class="half mito"><h5>Del mito</h5><p>El <strong>séptimo y más maldito</strong>: monstruo canino escuálido y maloliente (o hombre-lobo en la versión sincrética). Profana tumbas, se alimenta de carroña. <strong>Señor de la muerte.</strong></p></div>
+    <div class="half game"><h5>En Vigilia</h5><p class="rol">Sub-jefe más duro (Acto 6, antes de Moñái).</p><p>Fase nocturna / luna llena; <strong>revive caídos</strong>; aura de miasma. El clímax de dificultad. <span class="tag t-sug">nota</span> en el informe original era candidato a jefe final; el PO eligió a Moñái, así que Luisón es el penúltimo escalón.</p></div>
+  </div>
+</div>
+
+<!-- 8 ACTOS -->
+<h2 id="actos">8 · Los 7 actos, uno por uno</h2>
 <div class="scroll">
 <table class="acts">
 <thead><tr><th>Acto</th><th>Hermano · dominio</th><th>Beat narrativo (lo que Porãsy revela)</th><th>Tono</th></tr></thead>
@@ -193,8 +271,8 @@
 </div>
 <p class="muted" style="font-size:.88rem;"><span class="tag t-sug">SUGERENCIA</span> Cada acto abre con Porãsy presentando al hermano (viñeta breve) y cierra, tras el boss, con un beat que <strong>avanza su plan de reunirlos</strong>. Así la acción nunca frena pero la historia siempre progresa.</p>
 
-<!-- 8 POMBERO -->
-<h2 id="pombero">8 · El hilo secreto — el Pombero</h2>
+<!-- 9 POMBERO -->
+<h2 id="pombero">9 · El hilo secreto — el Pombero</h2>
 <p><span class="tag t-myth">MITO</span> El <strong>Pombero</strong> es el señor de la noche y del monte, guardián ambivalente: castiga al que abusa, protege al que respeta y deja ofrendas (tabaco, caña, miel). <strong>No es hermano de los siete</strong> — es otro ciclo mítico.</p>
 <div class="box box-inv">
 <h4>Cómo entra sin romper el canon</h4>
@@ -202,8 +280,8 @@
 <p style="margin:0;">Encaja temáticamente con el título <em>Vigilia</em>: el que vela con respeto se gana el encuentro. <span class="tag t-gap">A DEFINIR</span> qué recompensa/da el Pombero (¿un arma, un final alternativo, lore?). <em>Decisión del PO.</em></p>
 </div>
 
-<!-- 9 FINAL -->
-<h2 id="final">9 · El final — el sacrificio de Porãsy</h2>
+<!-- 10 FINAL -->
+<h2 id="final">10 · El final — el sacrificio de Porãsy</h2>
 <p><span class="tag t-myth">MITO</span> Reunidos los siete, el pueblo los encierra y <strong>quema el cerro</strong>; Porãsy muere en el sacrificio y asciende como <strong>Venus, el Lucero del Alba</strong>.</p>
 <ul>
 <li><span class="tag t-inv">FICCIÓN DE JUEGO</span> Tras derrotar a Moñái, <strong>epílogo</strong> (decisión del PO): la purga por fuego, la muerte de Porãsy y su ascensión. La larga noche termina: <strong>amanece</strong>, y la primera luz es una estrella —ella.</li>
@@ -211,8 +289,8 @@
 <li><span class="tag t-gap">A DEFINIR</span> Si el <strong>final con el Pombero</strong> (jefe secreto) desbloquea un cierre alternativo o una escena extra. <em>Decisión del PO.</em></li>
 </ul>
 
-<!-- 10 VOZ -->
-<h2 id="voz">10 · Voz bilingüe español / guaraní</h2>
+<!-- 11 VOZ -->
+<h2 id="voz">11 · Voz bilingüe español / guaraní</h2>
 <p><span class="tag t-myth">MITO</span> El guaraní no es decorado: es la lengua del mito. <span class="tag t-sug">SUGERENCIA</span> de uso (a afinar en el research del MVP):</p>
 <ul>
 <li><strong>Nombres en guaraní</strong> siempre (Teju Jagua, Mbói Tu'ĩ, Moñái, Jasy Jateré, Kurupí, Ao Ao, Luisón, Porãsy, Pombero).</li>
@@ -221,8 +299,8 @@
 <li><span class="tag t-gap">A DEFINIR</span> Alcance: ¿solo textos, o también voces habladas? ¿Subtítulos ES obligatorios? <em>Decisión del PO / disenador.</em></li>
 </ul>
 
-<!-- 11 MVP -->
-<h2 id="mvp">11 · Rebanada MVP — Acto 1: Teju Jagua</h2>
+<!-- 12 MVP -->
+<h2 id="mvp">12 · Rebanada MVP — Acto 1: Teju Jagua</h2>
 <p><span class="tag t-inv">FICCIÓN DE JUEGO</span> El MVP es 1 nivel + 1 boss + narrativa mínima (decisión del PO). Guion beat a beat del Acto 1, listo para que el disenador lo baje a historias:</p>
 <dl class="beat">
 <dt>Intro</dt><dd>Viñetas: la maldición de Taú y Keraná; nacen los siete. Cierra con la voz de Porãsy llamando a los guardianes: la noche empezó.</dd>
@@ -243,8 +321,8 @@
 <p style="margin:0;"><strong>Objetivo del MVP:</strong> probar el <em>feeling</em> completo en pequeño — run-and-gun + 1-hit con rescate + pixel art + un jefe mítico + la voz de Porãsy + el arranque de la historia. Si esto se siente bien, el resto es repetir el patrón seis veces con variación.</p>
 </div>
 
-<!-- 12 GAP -->
-<h2 id="gap">12 · Preguntas abiertas para el PO</h2>
+<!-- 13 GAP -->
+<h2 id="gap">13 · Preguntas abiertas para el PO</h2>
 <div class="box box-gap">
 <ol style="margin:0;">
 <li><span class="tag t-gap">A DEFINIR</span> <strong>Nombres</strong> de los dos protagonistas (guaraní) — lo cubro en el research del MVP.</li>
