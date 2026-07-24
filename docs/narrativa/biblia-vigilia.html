@@ -1,0 +1,262 @@
+<title>Vigilia — Biblia narrativa (borrador para revisión del PO)</title>
+
+<style>
+  :root{
+    --night:#100e17; --night-2:#171423; --panel:#1d1930; --panel-2:#241f3a;
+    --line:#332c4d; --gold:#e0ad52; --gold-soft:#f0cf90; --ember:#c9603b;
+    --moss:#7fa46a; --fg:#ece7f5; --muted:#a49bc0; --muted-2:#6f6791;
+    --myth:#7fa46a; --myth-bg:#18211a; --inv:#7ea0d8; --inv-bg:#151b28;
+    --sug:#e0ad52; --sug-bg:#231d10; --gap:#c9603b; --gap-bg:#241612;
+  }
+  *{box-sizing:border-box;}
+  body,.page{
+    background:
+      radial-gradient(1200px 760px at 50% -14%, rgba(224,173,82,.10), transparent 60%),
+      radial-gradient(760px 520px at 12% 6%, rgba(126,160,216,.06), transparent 55%),
+      var(--night);
+    color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.64;
+  }
+  .display{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;}
+  .page{max-width:840px;margin:0 auto;padding:1.6rem 1.15rem 4rem;font-size:16.5px;}
+
+  .kicker{font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 .4rem;}
+  h1{font-size:2rem;line-height:1.12;margin:0 0 .3rem;letter-spacing:-.01em;text-wrap:balance;}
+  h1 em{color:var(--gold-soft);font-style:italic;}
+  .lead{color:var(--muted);font-size:1.02rem;margin:.3rem 0 0;}
+  h2{font-size:1.4rem;margin:2.6rem 0 .6rem;padding-bottom:.35rem;border-bottom:1px solid var(--line);}
+  h3{font-size:1.12rem;margin:1.6rem 0 .3rem;color:var(--gold-soft);}
+  p{margin:.55rem 0;}
+  a{color:var(--gold);}
+  ul,ol{margin:.5rem 0 .8rem;padding-left:1.3rem;}
+  li{margin:.34rem 0;}
+  strong{color:var(--fg);}
+  .muted{color:var(--muted);}
+  em.gn{color:var(--moss);font-style:italic;}
+
+  .tag{display:inline-block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.12em .5em;border-radius:999px;vertical-align:middle;}
+  .t-myth{color:var(--myth);background:var(--myth-bg);border:1px solid var(--myth);}
+  .t-inv{color:var(--inv);background:var(--inv-bg);border:1px solid var(--inv);}
+  .t-sug{color:var(--sug);background:var(--sug-bg);border:1px solid var(--sug);}
+  .t-gap{color:var(--gap);background:var(--gap-bg);border:1px solid var(--gap);}
+
+  .legend{font-size:.85rem;color:var(--muted);margin:.7rem 0 0;display:flex;flex-wrap:wrap;gap:.5rem .9rem;}
+
+  .box{border:1px solid var(--line);border-radius:12px;padding:.95rem 1.1rem;margin:1.1rem 0;background:var(--night-2);}
+  .box-note{border-left:3px solid var(--muted-2);}
+  .box-myth{border-left:3px solid var(--myth);}
+  .box-inv{border-left:3px solid var(--inv);background:var(--inv-bg);}
+  .box-gap{border-left:3px solid var(--gap);background:var(--gap-bg);}
+  .box h4{margin:0 0 .5rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+
+  .logline{font-family:"Iowan Old Style",Palatino,Georgia,serif;font-size:1.28rem;line-height:1.4;color:var(--gold-soft);text-wrap:balance;}
+
+  table{border-collapse:collapse;width:100%;font-size:.9rem;}
+  .scroll{overflow-x:auto;margin:1rem 0;}
+  th,td{text-align:left;padding:.55rem .6rem;border-bottom:1px solid var(--line);vertical-align:top;}
+  thead th{color:var(--gold);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;border-bottom:2px solid var(--line);}
+  tbody tr:last-child td{border-bottom:0;}
+  .acts{min-width:720px;}
+  .acts td:nth-child(1){color:var(--gold);font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .acts td:nth-child(2){font-weight:600;white-space:nowrap;}
+
+  .beat{display:grid;grid-template-columns:90px 1fr;gap:.2rem .9rem;margin:.5rem 0;padding:.5rem 0;border-bottom:1px solid var(--line);}
+  .beat:last-child{border-bottom:0;}
+  .beat dt{font-weight:700;color:var(--gold);font-size:.82rem;}
+  .beat dd{margin:0;}
+  .toc{background:var(--night-2);border:1px solid var(--line);border-radius:12px;padding:.9rem 1.1rem;margin:1.3rem 0;}
+  .toc ol{columns:2;column-gap:1.5rem;margin:.3rem 0 0;}
+  .toc a{text-decoration:none;}
+  code{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:.05em .35em;font-size:.9em;}
+  .foot{margin-top:2.6rem;font-size:.82rem;color:var(--muted-2);border-top:1px solid var(--line);padding-top:1rem;}
+  @media (max-width:560px){ .page{font-size:16px;} h1{font-size:1.6rem;} .toc ol{columns:1;} .beat{grid-template-columns:1fr;gap:0;} .beat dt{margin-top:.4rem;} }
+</style>
+
+<div class="page">
+
+<p class="kicker">Salto Games · Biblia narrativa · borrador</p>
+<h1 class="display"><em>Vigilia</em></h1>
+<p class="lead">Biblia narrativa del juego — la historia, el arco de oleadas y jefe, y el tono. Construida sobre la dirección aprobada por el PO y anclada al folclore guaraní documentado.</p>
+
+<div class="box box-note">
+<h4>Estado y autoría</h4>
+<p style="margin:0 0 .4rem;">Este documento lo <strong>redactó Research</strong> a pedido del PO, para no frenar el trabajo. Formalmente la biblia es entregable del rol <strong>Narrativa</strong> (issue #121); esto es un <strong>borrador para tu revisión</strong> que narrativa/disenador pueden pulir sin arrancar de cero. Nada acá cambia tus decisiones: las traduce a historia.</p>
+</div>
+
+<p class="legend">
+  <span class="tag t-myth">MITO</span> anclado al folclore documentado ·
+  <span class="tag t-inv">FICCIÓN DE JUEGO</span> inventado para Vigilia (no está en el mito) ·
+  <span class="tag t-sug">SUGERENCIA</span> propuesta a validar ·
+  <span class="tag t-gap">A DEFINIR</span> decisión pendiente del PO.
+</p>
+
+<div class="toc">
+<strong>Contenido</strong>
+<ol>
+<li><a href="#premisa">Premisa</a></li>
+<li><a href="#mundo">Mundo y tono</a></li>
+<li><a href="#backstory">El mito de fondo (la maldición)</a></li>
+<li><a href="#porasy">Porãsy — la voz</a></li>
+<li><a href="#heroes">Los protagonistas</a></li>
+<li><a href="#hermanos">Los siete — estructura de actos</a></li>
+<li><a href="#actos">Los 7 actos, uno por uno</a></li>
+<li><a href="#pombero">El hilo secreto (Pombero)</a></li>
+<li><a href="#final">El final (Venus)</a></li>
+<li><a href="#voz">Voz bilingüe ES/GN</a></li>
+<li><a href="#mvp">Rebanada MVP — Acto 1</a></li>
+<li><a href="#gap">Preguntas abiertas</a></li>
+</ol>
+</div>
+
+<!-- 1 PREMISA -->
+<h2 id="premisa">1 · Premisa</h2>
+<p class="logline">Cuando la noche se puebla de los siete monstruos que una maldición trajo al mundo, dos guardianes del pueblo se internan en el monte para acabar con ellos, uno por uno, guiados por la voz de una mujer que ya decidió morir para salvarlos.</p>
+<p><strong>Género:</strong> run-and-gun de acción (tipo Metal Slug), co-op online hasta 4. <strong>Tono:</strong> terror folclórico, adulto (+16). <strong>Mundo:</strong> mitología guaraní-paraguaya. <strong>Duración de campaña:</strong> 7 niveles + jefe final + jefe secreto.</p>
+<p><span class="tag t-inv">FICCIÓN DE JUEGO</span> "Vigilia" es velar de noche: el juego transcurre en una <strong>larga noche</strong> que no termina hasta que los siete caen. El título es también una promesa mecánica — el jugador vela, resiste, avanza en la oscuridad.</p>
+
+<!-- 2 MUNDO -->
+<h2 id="mundo">2 · Mundo y tono</h2>
+<p><span class="tag t-myth">MITO</span> El mundo es el de los primeros guaraníes: montes, esteros, cerros, la selva y los pueblos junto al fuego. La cosmología (Taú, Keraná, Angatupyry, Porãsy) viene del ciclo de los siete hijos malditos.</p>
+<ul>
+<li><span class="tag t-sug">SUGERENCIA · TONO</span> <strong>Terror folclórico, no gore gratuito.</strong> El miedo viene de lo antiguo y lo natural: el silbido en la siesta, el grito en el estero, algo que respira en la cueva. El +16 se usa para <strong>atmósfera y peso</strong>, no para sangre por la sangre.</li>
+<li><span class="tag t-sug">SUGERENCIA · TONO</span> <strong>La noche como personaje.</strong> Luz de luna, brasas, luciérnagas, ojos en la oscuridad. Cada nivel es un rincón distinto de esa misma noche.</li>
+<li><span class="tag t-sug">SUGERENCIA · TONO</span> <strong>Respeto por la fuente.</strong> Las criaturas no son "bichos genéricos": son mitos con dominio y sentido. El juego los presenta con dignidad, aunque haya que matarlos.</li>
+</ul>
+
+<!-- 3 BACKSTORY -->
+<h2 id="backstory">3 · El mito de fondo — la maldición</h2>
+<p><span class="tag t-myth">MITO</span> <strong>Taú</strong>, espíritu del mal, rapta y desposa a <strong>Keraná</strong>, la doncella dormilona. Como castigo, el espíritu del bien <strong>Angatupyry</strong> maldice a la pareja a engendrar <strong>siete monstruos</strong>, todos nacidos prematuros. Cada uno reina sobre un dominio del mundo natural y trae al pueblo una de las siete penas: miedo, dolor, llanto, hambre, sed, enfermedad y muerte.</p>
+<div class="box box-inv">
+<h4>Cómo lo cuenta el juego</h4>
+<p style="margin:0;"><span class="tag t-inv">FICCIÓN DE JUEGO</span> La <strong>intro corta</strong> (viñetas ilustradas) muestra la maldición y el nacimiento de los siete. Luego el juego <strong>no vuelve a explicar todo de golpe</strong>: cada nivel revela a su monstruo cuando lo enfrentás, con Porãsy poniéndole nombre y sentido. La historia se arma avanzando (decisión del PO: intro corta + resto entre niveles).</p>
+</div>
+
+<!-- 4 PORASY -->
+<h2 id="porasy">4 · Porãsy — la voz que te guía</h2>
+<p><span class="tag t-myth">MITO</span> <strong>Porãsy</strong> ("la madre de la belleza") es la heroína del mito: se <strong>ofrece en sacrificio</strong> para acabar con los siete. Engaña a Moñái para reunirlos y provoca su fin; al morir se transforma en <strong>Venus, el Lucero del Alba</strong>.</p>
+<ul>
+<li><span class="tag t-inv">FICCIÓN DE JUEGO</span> En Vigilia, Porãsy es la <strong>narradora/guía</strong> (decisión del PO). No pelea con vos: te <strong>habla</strong>. Es quien sabe qué son estas criaturas, dónde están y cómo caen.</li>
+<li><span class="tag t-sug">SUGERENCIA</span> Su voz cambia de registro a lo largo de la noche: al principio, guía firme; hacia el final, se transparenta que <strong>su plan la va a costar la vida</strong>. El jugador entiende de a poco que la mujer que lo guía se está despidiendo.</li>
+<li><span class="tag t-sug">SUGERENCIA</span> <strong>Gancho emocional:</strong> Porãsy no odia a los siete. Son, en el fondo, hijos de una maldición ajena. Su sacrificio no es venganza: es cerrar una herida del mundo. Eso le da al juego un fondo triste bajo la acción.</li>
+</ul>
+
+<!-- 5 HEROES -->
+<h2 id="heroes">5 · Los protagonistas — guerrero y cazadora</h2>
+<p><span class="tag t-inv">FICCIÓN DE JUEGO</span> El mito <strong>no tiene un dúo de héroes</strong>: los dos personajes jugables son creación del juego (decisión del PO: 2 seleccionables). Propuesta de identidad:</p>
+<div class="scroll">
+<table>
+<thead><tr><th>Personaje</th><th>Quién es</th><th>Estilo de combate</th><th>Motivación</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>El guerrero</strong></td>
+<td>Guardián del pueblo, curtido, de pocas palabras. Empuñaba el fuego antes de que Porãsy lo llamara.</td>
+<td>Cuerpo firme, armas de impacto y corto alcance; aguanta la línea del frente.</td>
+<td>Deuda con el pueblo; enfrenta a los siete porque alguien tiene que hacerlo.</td>
+</tr>
+<tr>
+<td><strong>La cazadora</strong></td>
+<td>Rastreadora del monte, conoce los caminos de la noche y el canto de las aves.</td>
+<td>Ágil, distancia y precisión; lee el terreno, esquiva, castiga desde lejos.</td>
+<td>Perdió a alguien a manos de un mito (¿el Jasy Jateré se llevó a un niño de su familia?); caza para que no se lleven a nadie más.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="box box-gap">
+<p style="margin:0;"><span class="tag t-gap">A DEFINIR</span> <strong>Nombres guaraníes</strong> para los dos (queda para el research del MVP que pediste después). <span class="tag t-gap">A DEFINIR</span> Si su historia personal (la pérdida de la cazadora) entra en la narrativa o queda solo como color. <em>Decisión del PO.</em></p>
+</div>
+
+<!-- 6 HERMANOS -->
+<h2 id="hermanos">6 · Los siete — la estructura de actos</h2>
+<p><span class="tag t-myth">MITO</span> Los siete hijos son la columna del juego: <strong>7 niveles = 7 hermanos</strong>, cada uno en su dominio. <span class="tag t-inv">FICCIÓN DE JUEGO</span> El orden de combate lo define el juego (el mito no lo fija) — se ordena por escalada de dificultad, aprobada por el PO.</p>
+<div class="box box-myth">
+<h4>Por qué Moñái es el jefe final</h4>
+<p style="margin:0;"><span class="tag t-myth">MITO</span> En el relato, <strong>Moñái es el hermano que convoca a los siete</strong> — por eso Porãsy lo engaña <em>a él</em> para reunirlos a todos. <span class="tag t-inv">FICCIÓN DE JUEGO</span> Vigilia toma eso al pie de la letra: a lo largo de la noche descubrimos que los otros seis <strong>responden a Moñái</strong>, que está juntando a sus hermanos para algo. El clímax es cuando Porãsy usa esa misma reunión como trampa. Moñái no es el más fuerte del mito, pero es el <strong>nudo</strong>: derrotarlo es cerrar el círculo.</p>
+</div>
+
+<!-- 7 ACTOS -->
+<h2 id="actos">7 · Los 7 actos, uno por uno</h2>
+<div class="scroll">
+<table class="acts">
+<thead><tr><th>Acto</th><th>Hermano · dominio</th><th>Beat narrativo (lo que Porãsy revela)</th><th>Tono</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Teju Jagua · cuevas</td><td>La primera criatura. Imponente —siete cabezas, ojos de fuego— pero casi inofensiva: guarda, no ataca. Porãsy te enseña que el miedo engaña; no todo lo monstruoso es lo más peligroso.</td><td>Umbral, asombro, tutorial del terror.</td></tr>
+<tr><td>2</td><td>Jasy Jateré · la siesta</td><td>El niño de oro que roba niños. Aquí el horror se vuelve íntimo: un silbido hermoso que separa al grupo. Primera pérdida real que el pueblo llora.</td><td>Inquietud a plena luz del mediodía.</td></tr>
+<tr><td>3</td><td>Mbói Tu'ĩ · esteros</td><td>El grito en el agua. Porãsy empieza a nombrar el patrón: los hermanos se están moviendo, como llamados. Algo los reúne.</td><td>Opresivo, húmedo, sonoro.</td></tr>
+<tr><td>4</td><td>Kurupí · bosque</td><td>El deseo hecho monstruo. <span class="tag t-sug">SUGERENCIA</span> tratamiento <strong>real pero sutil</strong> (decisión del PO): su naturaleza fálica/fértil se insinúa —el lazo que atrapa, la fecundidad torcida del bosque— sin volverse explícita ni chiste.</td><td>Bochorno, amenaza sexualizada contenida.</td></tr>
+<tr><td>5</td><td>Ao Ao · cerros</td><td>La manada. Ya no es un monstruo: son muchos, y no paran. Porãsy revela el destino: hay que reunirlos a todos para terminarlos de una vez. Su plan toma forma.</td><td>Persecución, pánico, huida hacia arriba.</td></tr>
+<tr><td>6</td><td>Luisón · cementerio</td><td>El señor de la muerte. El más maldito, el más triste. Porãsy habla de su propio final por primera vez. La noche es más oscura antes del alba.</td><td>Fúnebre, umbral de la muerte, clímax emocional.</td></tr>
+<tr><td>7</td><td><strong>Moñái</strong> · guarida final</td><td>Todos reunidos. La trampa de Porãsy se cierra. Derrotás a Moñái y con él al ciclo. Corte a epílogo.</td><td>Culminación, sacrificio, amanecer.</td></tr>
+</tbody>
+</table>
+</div>
+<p class="muted" style="font-size:.88rem;"><span class="tag t-sug">SUGERENCIA</span> Cada acto abre con Porãsy presentando al hermano (viñeta breve) y cierra, tras el boss, con un beat que <strong>avanza su plan de reunirlos</strong>. Así la acción nunca frena pero la historia siempre progresa.</p>
+
+<!-- 8 POMBERO -->
+<h2 id="pombero">8 · El hilo secreto — el Pombero</h2>
+<p><span class="tag t-myth">MITO</span> El <strong>Pombero</strong> es el señor de la noche y del monte, guardián ambivalente: castiga al que abusa, protege al que respeta y deja ofrendas (tabaco, caña, miel). <strong>No es hermano de los siete</strong> — es otro ciclo mítico.</p>
+<div class="box box-inv">
+<h4>Cómo entra sin romper el canon</h4>
+<p style="margin:0 0 .4rem;"><span class="tag t-inv">FICCIÓN DE JUEGO</span> El Pombero es el <strong>jefe secreto</strong> (decisión del PO). Hilo a lo largo de la campaña: <span class="tag t-sug">SUGERENCIA</span> en cada nivel hay un rincón donde podés <strong>dejar una ofrenda</strong> en vez de saquear/matar de más. Si respetás la noche en los 7 niveles, el Pombero se te aparece como <strong>jefe oculto opcional</strong> — ni villano ni aliado, una prueba de la noche misma.</p>
+<p style="margin:0;">Encaja temáticamente con el título <em>Vigilia</em>: el que vela con respeto se gana el encuentro. <span class="tag t-gap">A DEFINIR</span> qué recompensa/da el Pombero (¿un arma, un final alternativo, lore?). <em>Decisión del PO.</em></p>
+</div>
+
+<!-- 9 FINAL -->
+<h2 id="final">9 · El final — el sacrificio de Porãsy</h2>
+<p><span class="tag t-myth">MITO</span> Reunidos los siete, el pueblo los encierra y <strong>quema el cerro</strong>; Porãsy muere en el sacrificio y asciende como <strong>Venus, el Lucero del Alba</strong>.</p>
+<ul>
+<li><span class="tag t-inv">FICCIÓN DE JUEGO</span> Tras derrotar a Moñái, <strong>epílogo</strong> (decisión del PO): la purga por fuego, la muerte de Porãsy y su ascensión. La larga noche termina: <strong>amanece</strong>, y la primera luz es una estrella —ella.</li>
+<li><span class="tag t-sug">SUGERENCIA</span> El juego cierra sobre los dos protagonistas mirando el lucero al alba. La que los guio toda la noche ahora los alumbra. Fin agridulce: ganaron, pero a un costo.</li>
+<li><span class="tag t-gap">A DEFINIR</span> Si el <strong>final con el Pombero</strong> (jefe secreto) desbloquea un cierre alternativo o una escena extra. <em>Decisión del PO.</em></li>
+</ul>
+
+<!-- 10 VOZ -->
+<h2 id="voz">10 · Voz bilingüe español / guaraní</h2>
+<p><span class="tag t-myth">MITO</span> El guaraní no es decorado: es la lengua del mito. <span class="tag t-sug">SUGERENCIA</span> de uso (a afinar en el research del MVP):</p>
+<ul>
+<li><strong>Nombres en guaraní</strong> siempre (Teju Jagua, Mbói Tu'ĩ, Moñái, Jasy Jateré, Kurupí, Ao Ao, Luisón, Porãsy, Pombero).</li>
+<li><strong>Porãsy narra en un español teñido de guaraní</strong>, con palabras clave sin traducir para dar textura (p. ej. <em class="gn">pytã</em> —rojo—, <em class="gn">ka'aguy</em> —monte—, <em class="gn">pyhare</em> —noche—). <span class="tag t-gap">A DEFINIR</span> verificar cada término con fuente en el research del MVP.</li>
+<li><strong>Gritos y onomatopeyas</strong> en guaraní: el "¡Ao! ¡Ao!" del Ao Ao, el silbido del Jasy Jateré. Refuerzan el terror con sonido propio.</li>
+<li><span class="tag t-gap">A DEFINIR</span> Alcance: ¿solo textos, o también voces habladas? ¿Subtítulos ES obligatorios? <em>Decisión del PO / disenador.</em></li>
+</ul>
+
+<!-- 11 MVP -->
+<h2 id="mvp">11 · Rebanada MVP — Acto 1: Teju Jagua</h2>
+<p><span class="tag t-inv">FICCIÓN DE JUEGO</span> El MVP es 1 nivel + 1 boss + narrativa mínima (decisión del PO). Guion beat a beat del Acto 1, listo para que el disenador lo baje a historias:</p>
+<dl class="beat">
+<dt>Intro</dt><dd>Viñetas: la maldición de Taú y Keraná; nacen los siete. Cierra con la voz de Porãsy llamando a los guardianes: la noche empezó.</dd>
+</dl>
+<dl class="beat">
+<dt>Entrada</dt><dd>Selección de personaje (guerrero / cazadora). Porãsy: "La primera está en la cueva del cerro. No te va a atacar. Pero no te confíes." Enseña el terror sin castigar todavía.</dd>
+</dl>
+<dl class="beat">
+<dt>Nivel</dt><dd>Avance lateral hacia la cueva. Secuaces genéricos (bichos del monte). Se introduce el loop: disparar, avanzar, <strong>1 golpe y morís + rescate</strong> entre compañeros, refugio en la <em class="gn">pindó</em>.</dd>
+</dl>
+<dl class="beat">
+<dt>Boss</dt><dd><strong>Teju Jagua:</strong> lagarto de 7 cabezas de perro, ojos de fuego. Imponente pero torpe — buen primer jefe: sus cabezas escupen fuego (patrón esquivable), pero no puede usar su fuerza. Enseña a leer un jefe sin frustrar.</dd>
+</dl>
+<dl class="beat">
+<dt>Cierre</dt><dd>Cae el primero. Porãsy: quedan seis, y algo los está llamando a todos. Gancho hacia el Acto 2. (Rincón de ofrenda opcional = semilla del hilo del Pombero.)</dd>
+</dl>
+<div class="box box-note">
+<p style="margin:0;"><strong>Objetivo del MVP:</strong> probar el <em>feeling</em> completo en pequeño — run-and-gun + 1-hit con rescate + pixel art + un jefe mítico + la voz de Porãsy + el arranque de la historia. Si esto se siente bien, el resto es repetir el patrón seis veces con variación.</p>
+</div>
+
+<!-- 12 GAP -->
+<h2 id="gap">12 · Preguntas abiertas para el PO</h2>
+<div class="box box-gap">
+<ol style="margin:0;">
+<li><span class="tag t-gap">A DEFINIR</span> <strong>Nombres</strong> de los dos protagonistas (guaraní) — lo cubro en el research del MVP.</li>
+<li><span class="tag t-gap">A DEFINIR</span> ¿La <strong>historia personal</strong> de la cazadora (una pérdida a manos de un mito) entra en la trama, o queda solo como color?</li>
+<li><span class="tag t-gap">A DEFINIR</span> ¿Qué <strong>da el Pombero</strong> como jefe secreto? ¿Desbloquea un final alternativo?</li>
+<li><span class="tag t-gap">A DEFINIR</span> <strong>Alcance del guaraní:</strong> ¿solo textos o también voces? ¿Subtítulos ES obligatorios?</li>
+<li><span class="tag t-gap">A DEFINIR</span> ¿La maldición de Taú/Keraná se cuenta <strong>completa en la intro</strong> o se dosifica también entre niveles?</li>
+</ol>
+</div>
+
+<div class="foot">
+<p>Biblia narrativa (borrador) · <em>Vigilia</em> · Estudio Salto Games. Construida sobre la dirección aprobada del PO (<code>docs/research/brief-vigilia-direccion.html</code>) y las fuentes del informe de folclore (<code>docs/research/pombero-siete-hermanos.html</code>). Todo lo marcado <span class="tag t-inv">FICCIÓN DE JUEGO</span> es invención para el juego, separada de lo que dice el mito. La visión la decide el PO; narrativa/disenador formalizan.</p>
+</div>
+
+</div>
