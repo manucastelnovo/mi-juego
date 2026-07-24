@@ -38,6 +38,9 @@ public class EstadoCaido : NetworkBehaviour
     // Todos los jugadores vivos en la escena (para medir proximidad en el host).
     private static readonly List<EstadoCaido> Todos = new List<EstadoCaido>();
 
+    /// <summary>Todos los jugadores en escena (solo lectura); lo usa el enemigo para buscar objetivo (#69).</summary>
+    public static IReadOnlyList<EstadoCaido> Jugadores => Todos;
+
     // Caido y progreso los escribe solo el host; todos los leen.
     private readonly NetworkVariable<bool> caido = new NetworkVariable<bool>(
         false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);

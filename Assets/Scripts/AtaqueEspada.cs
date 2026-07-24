@@ -135,6 +135,15 @@ public class AtaqueEspada : NetworkBehaviour
         Collider2D[] tocados = Physics2D.OverlapBoxAll(CentroZona(dir), tamanoZona, 0f);
         foreach (Collider2D col in tocados)
         {
+            // Enemigos (#69): la espada los daña / mata.
+            SaludEnemigo enemigo = col.GetComponentInParent<SaludEnemigo>();
+            if (enemigo != null)
+            {
+                enemigo.AplicarDanio(danio);
+                pego = true;
+                continue;
+            }
+
             SaludJugador salud = col.GetComponentInParent<SaludJugador>();
             if (salud == null) continue;
             // No se pega a si mismo.
@@ -143,7 +152,6 @@ public class AtaqueEspada : NetworkBehaviour
             salud.AplicarDanio(danio);
             pego = true;
         }
-        // NOTA: cuando existan los enemigos (#69) se agregan aca como objetivos.
         return pego;
     }
 
