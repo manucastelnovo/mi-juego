@@ -31,6 +31,9 @@ public class SaludJugador : NetworkBehaviour
     /// <summary>Solo en el host: el jugador llego a 0 de vida. Lo usa EstadoCaido (#68) para marcar el caido.</summary>
     public event Action AlCaerServidor;
 
+    /// <summary>La vida de ESTE jugador cambio; se dispara en todos los peers. Lo usa la barra sobre companeros (#67).</summary>
+    public event Action<int, int> AlCambiarVidaReplicada;
+
     [Header("Balance (visible desde el Inspector)")]
     [Tooltip("Puntos de vida al aparecer y tope maximo.")]
     [SerializeField] private int vidaMaxima = 5;
@@ -114,6 +117,9 @@ public class SaludJugador : NetworkBehaviour
     // parpadea si bajo la vida y avisa si quedo en 0.
     private void AlCambiarVida(int anterior, int nueva)
     {
+        // Se replica en todos los peers para la barra sobre companeros (#67).
+        AlCambiarVidaReplicada?.Invoke(nueva, vidaMaxima);
+
         if (IsOwner)
         {
             AlCambiarVidaLocal?.Invoke(nueva, vidaMaxima);
