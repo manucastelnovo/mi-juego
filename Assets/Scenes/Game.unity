@@ -3042,7 +3042,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2021521442}
   - component: {fileID: 2021521441}
-  - component: {fileID: 2021521443}
   m_Layer: 0
   m_Name: ConexionDevHarness
   m_TagString: Untagged
@@ -3079,27 +3078,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2021521443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021521440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 984b9881d0a5b3649919e7000adc358a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PruebaE3Rastrero
-  prefabRastrero: {fileID: 6634344048125512451, guid: 44b7f4db04942e2489b9ddfbf08f0d7f, type: 3}
-  prefabJugador: {fileID: 1203467963, guid: 0188ed316d2dbc58840dfce8a99fe21b, type: 3}
-  autoEjecutar: 1
-  esperaInicial: 1
-  intervaloLog: 1
-  puntoSpawnRastrero1: {x: -14, y: -1, z: 0}
-  puntoSpawnJugadorFalsoLejos: {x: 10, y: -2, z: 0}
-  puntoSpawnJugadorFalsoEspada: {x: 0, y: -1, z: 0}
-  puntoSpawnRastrero2: {x: 0.8, y: -1, z: 0}
 --- !u!1 &2052374700
 GameObject:
   m_ObjectHideFlags: 0
