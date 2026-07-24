@@ -1,0 +1,344 @@
+<title>Vigilia — Folclore guaraní: el Pombero y los siete hijos de Tau y Kerana (informe de research)</title>
+
+<style>
+  :root{
+    --bg:#faf7f2; --fg:#1c1a17; --muted:#5b544a; --line:#e2d9cc;
+    --card:#ffffff; --accent:#7a5a2f; --accent2:#3d5a3d;
+    --fact:#2f5233; --fact-bg:#eef4ee; --sug:#8a5a1a; --sug-bg:#fbf1e2;
+    --warn:#8a2f2f; --warn-bg:#fbedea;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#17150f; --fg:#ece5d8; --muted:#a89f8f; --line:#332e24;
+      --card:#201d16; --accent:#d0a860; --accent2:#8fbf8f;
+      --fact:#9fd0a4; --fact-bg:#16241a; --sug:#e0b877; --sug-bg:#2a2113;
+      --warn:#e6a3a3; --warn-bg:#2a1614;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#17150f; --fg:#ece5d8; --muted:#a89f8f; --line:#332e24;
+    --card:#201d16; --accent:#d0a860; --accent2:#8fbf8f;
+    --fact:#9fd0a4; --fact-bg:#16241a; --sug:#e0b877; --sug-bg:#2a2113;
+    --warn:#e6a3a3; --warn-bg:#2a1614;
+  }
+  :root[data-theme="light"]{
+    --bg:#faf7f2; --fg:#1c1a17; --muted:#5b544a; --line:#e2d9cc;
+    --card:#ffffff; --accent:#7a5a2f; --accent2:#3d5a3d;
+    --fact:#2f5233; --fact-bg:#eef4ee; --sug:#8a5a1a; --sug-bg:#fbf1e2;
+    --warn:#8a2f2f; --warn-bg:#fbedea;
+  }
+  *{box-sizing:border-box;}
+  body,.page{background:var(--bg);color:var(--fg);}
+  .page{
+    max-width:860px;margin:0 auto;padding:1.4rem 1.15rem 4rem;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.62;font-size:17px;
+  }
+  h1{font-size:1.85rem;line-height:1.2;margin:.2rem 0 .35rem;letter-spacing:-.01em;}
+  h2{font-size:1.35rem;margin:2.4rem 0 .6rem;padding-bottom:.3rem;border-bottom:2px solid var(--line);}
+  h3{font-size:1.12rem;margin:1.4rem 0 .3rem;color:var(--accent);}
+  h4{font-size:.95rem;margin:1rem 0 .2rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+  p{margin:.55rem 0;}
+  a{color:var(--accent);text-overflow:ellipsis;}
+  a:hover{text-decoration:underline;}
+  small,.muted{color:var(--muted);}
+  .lead{font-size:1.05rem;color:var(--muted);margin:.2rem 0 1rem;}
+  ul,ol{margin:.5rem 0 .8rem;padding-left:1.4rem;}
+  li{margin:.3rem 0;}
+  code{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:.05em .35em;font-size:.9em;}
+  hr{border:0;border-top:1px solid var(--line);margin:2rem 0;}
+
+  .tag{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;
+    letter-spacing:.04em;padding:.12em .5em;border-radius:999px;vertical-align:middle;}
+  .tag-fact{color:var(--fact);background:var(--fact-bg);border:1px solid var(--fact);}
+  .tag-sug{color:var(--sug);background:var(--sug-bg);border:1px solid var(--sug);}
+  .tag-warn{color:var(--warn);background:var(--warn-bg);border:1px solid var(--warn);}
+
+  .box{border:1px solid var(--line);border-radius:10px;padding:.9rem 1.05rem;margin:1rem 0;background:var(--card);}
+  .box-fact{border-left:4px solid var(--fact);}
+  .box-sug{border-left:4px solid var(--sug);background:var(--sug-bg);}
+  .box-warn{border-left:4px solid var(--warn);background:var(--warn-bg);}
+  .box h4{margin-top:0;}
+
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:1.4rem 0;}
+  .toc ol{margin:.4rem 0 0;}
+  .toc a{text-decoration:none;}
+
+  .creature{border:1px solid var(--line);border-radius:12px;padding:1rem 1.15rem;margin:1.3rem 0;background:var(--card);}
+  .creature h3{margin-top:.1rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:baseline;}
+  .creature .order{font-size:.8rem;color:var(--muted);font-weight:400;}
+  .domain{display:inline-block;font-size:.78rem;color:var(--accent2);font-weight:700;
+    border:1px solid var(--accent2);border-radius:999px;padding:.1em .55em;margin-top:.2rem;}
+  .row{display:grid;grid-template-columns:120px 1fr;gap:.2rem .8rem;margin:.5rem 0;}
+  .row dt{font-weight:700;color:var(--muted);font-size:.85rem;}
+  .row dd{margin:0;}
+  @media (max-width:560px){
+    body,.page{font-size:16px;}
+    .row{grid-template-columns:1fr;gap:0;}
+    .row dt{margin-top:.5rem;}
+  }
+  sup a{font-weight:700;text-decoration:none;}
+  .srclist li{margin:.5rem 0;word-break:break-word;}
+  .srclist .rank{font-size:.72rem;font-weight:700;padding:.05em .45em;border-radius:4px;margin-left:.4rem;}
+  .rank-a{color:var(--fact);background:var(--fact-bg);}
+  .rank-b{color:var(--sug);background:var(--sug-bg);}
+  .foot{margin-top:2.5rem;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1rem;}
+  .legend{font-size:.85rem;color:var(--muted);margin:.6rem 0 0;}
+</style>
+
+<div class="page">
+
+<p class="muted" style="margin-bottom:.2rem;font-size:.85rem;">Estudio Salto Games · Investigador / Research · 23 jul 2026</p>
+<h1>Folclore guaraní para <em>Vigilia</em>:<br>el Pombero y los siete hijos de Tau y Kerana</h1>
+<p class="lead">Informe de investigación para el Product Owner. Reúne la data documentada sobre el mito de origen guaraní-paraguayo, el Pombero, y las siete criaturas míticas, con fuentes citadas. Al final, una sección aparte con <strong>sugerencias</strong> de cómo podrían traducirse a enemigos de oleada y jefe final. <strong>Este informe no decide la historia; la visión del juego es del PO.</strong></p>
+
+<p class="legend">
+  <span class="tag tag-fact">HECHO CITADO</span> = afirmación sostenida por las fuentes.
+  <span class="tag tag-sug">SUGERENCIA</span> = idea de diseño, no decisión.
+  <span class="tag tag-warn">VACÍO / DUDA</span> = fuentes que no coinciden o data floja.
+</p>
+
+<div class="toc">
+  <strong>Contenido</strong>
+  <ol>
+    <li><a href="#resumen">Resumen ejecutivo</a></li>
+    <li><a href="#origen">El mito de origen: Tau y Kerana</a></li>
+    <li><a href="#pombero">El Pombero (leyenda relacionada, distinta)</a></li>
+    <li><a href="#hermanos">Los siete hijos de Tau y Kerana</a></li>
+    <li><a href="#contradicciones">Contradicciones y vacíos de la tradición</a></li>
+    <li><a href="#sugerencias">Sugerencias para el juego (no decisión)</a></li>
+    <li><a href="#fuentes">Fuentes</a></li>
+  </ol>
+</div>
+
+<!-- ============ RESUMEN ============ -->
+<h2 id="resumen">1 · Resumen ejecutivo</h2>
+<div class="box box-fact">
+  <h4>Lo esencial</h4>
+  <ul>
+    <li><strong>El mito madre:</strong> <em>Taú</em> (espíritu maligno) rapta y desposa a <em>Keraná</em> (una doncella bellísima, "la dormilona"). Como castigo, el espíritu del bien <em>Angatupyry</em> maldice a la pareja a engendrar <strong>siete monstruos</strong>, todos nacidos prematuros ("sietemesinos"). <span class="tag tag-fact">HECHO CITADO</span> <sup><a href="#f1">[1]</a></sup></li>
+    <li><strong>Los siete, en orden tradicional:</strong> Teju Jagua, Mbói Tu'ĩ, Moñái, Jasy Jateré, Kurupí, Ao Ao y Luisón. Cada uno domina un ámbito (cuevas, agua/esteros, campos/aire, la siesta, la fertilidad/bosque, los cerros, la muerte). <span class="tag tag-fact">HECHO CITADO</span> <sup><a href="#f1">[1]</a></sup></li>
+    <li><strong>El Pombero es OTRA leyenda:</strong> un duende de la noche y el monte. Las fuentes serias <strong>no</strong> lo cuentan entre los siete hijos de Tau y Kerana. Es un mito paralelo, no un hermano. <span class="tag tag-warn">OJO: no mezclar los dos ciclos</span> <sup><a href="#f8">[8]</a></sup></li>
+    <li><strong>Candidatos naturales a "boss":</strong> por peso simbólico, <strong>Luisón</strong> (señor de la muerte, el más maldito) y <strong>Moñái</strong> (el que en el mito reúne a los siete y es derrotado en una emboscada). El Pombero funcionaría mejor como "señor de la noche" temático que como jefe de un ciclo distinto. <span class="tag tag-sug">SUGERENCIA</span></li>
+    <li><strong>Sobre el contenido adulto:</strong> el Kurupí es un mito abiertamente fálico/sexual en el folclore. Es tratable de forma enciclopédica y se suaviza fácil para público general (ver su ficha). <span class="tag tag-fact">HECHO CITADO</span> <sup><a href="#f5">[5]</a></sup></li>
+  </ul>
+</div>
+
+<!-- ============ ORIGEN ============ -->
+<h2 id="origen">2 · El mito de origen: Tau y Kerana</h2>
+
+<p><span class="tag tag-fact">HECHO CITADO</span> En la cosmología guaraní recogida por los compiladores paraguayos (notablemente <em>León Cadogan</em> y la tradición del Museo Mitológico Ramón Elías), <strong>Keraná</strong> era hija de <strong>Marangatú</strong>, un hombre bondadoso; su nombre significa aproximadamente "la dormilona / adormecida", por su costumbre de dormir. <strong>Taú</strong>, un espíritu del mal, se enamoró de ella y, transformado en un joven apuesto, la cortejó y raptó. <sup><a href="#f1">[1]</a></sup></p>
+
+<p><span class="tag tag-fact">HECHO CITADO</span> El espíritu del bien <strong>Angatupyry</strong> se enfrentó a Taú para impedirlo. Tras una lucha que la tradición fija en <strong>siete días y siete noches</strong>, Taú venció con artimañas. La indignación fue tal que se pidió un castigo ejemplar: <strong>Angatupyry (en algunas versiones la diosa Arasy) maldijo a la pareja a engendrar monstruos</strong>. <sup><a href="#f1">[1]</a></sup></p>
+
+<p><span class="tag tag-fact">HECHO CITADO</span> Nacieron <strong>siete hijos, todos prematuros</strong> (de siete meses de gestación — de ahí "sietemesinos"), y todos deformes o monstruosos salvo, según varias versiones, el Jasy Jateré, que conservó forma humana. El número siete se asocia además, en algunas lecturas, con <strong>las siete penas humanas</strong> (miedo, dolor, llanto, hambre, sed, enfermedad y muerte) y con constelaciones (las Pléyades). <span class="tag tag-warn">La lectura astronómica varía entre fuentes</span> <sup><a href="#f1">[1]</a></sup></p>
+
+<div class="box box-fact">
+  <h4>El final del ciclo (cómo se derrota a los monstruos)</h4>
+  <p><span class="tag tag-fact">HECHO CITADO</span> En la versión más difundida (Wikipedia / compilaciones), <strong>Porãsy</strong> ("la madre de la belleza") se ofrece en sacrificio: seduce y engaña a <strong>Moñái</strong> para reunir a los siete hermanos en la <strong>cueva de Teju Jagua</strong>. Cuando los monstruos se emborrachan, su tribu <strong>tapona la entrada con una gran piedra y prende fuego al cerro</strong>. Porãsy muere en el sacrificio y es transformada en <strong>Venus, el Lucero del Alba</strong>. <sup><a href="#f1">[1]</a></sup></p>
+  <p class="muted" style="margin-bottom:0;font-size:.9rem;">Nota narrativa útil para el juego: el mito ya trae de fábrica una estructura de "encierro + purga por fuego" y una heroína que se sacrifica. Es material de arco argumental, no solo de bestiario.</p>
+</div>
+
+<!-- ============ POMBERO ============ -->
+<h2 id="pombero">3 · El Pombero</h2>
+
+<div class="box box-warn">
+  <h4>Aclaración de encaje</h4>
+  <p style="margin-bottom:0;"><span class="tag tag-warn">VACÍO / DUDA</span> El Pombero <strong>no es uno de los siete hijos de Tau y Kerana</strong>. Ninguna de las fuentes serias lo incluye en ese linaje. Pertenece al mismo <em>corpus</em> del folclore guaraní-paraguayo (los "duendes del monte"), pero es una <strong>leyenda independiente y paralela</strong>. Conviene tratarlo como una entidad aparte, no como "hermano número ocho". <sup><a href="#f8">[8]</a></sup></p>
+</div>
+
+<h3>Origen y nombre</h3>
+<p><span class="tag tag-fact">HECHO CITADO</span> El Pombero (también <em>Pomberito</em>, <em>Karaí Pyhare</em> = "señor de la noche", <em>Kuarahy Jara</em> = "dueño del sol" en los Esteros del Iberá) es un espíritu/duende guardián de la naturaleza, encargado de proteger el monte, los animales silvestres y especialmente las aves. La etimología es discutida: se propone <em>"po mberu"</em> ("mano de mosca", por su sigilo) o una raíz vinculada al portugués <em>pombeiro</em> (el que espía/rastrea). <span class="tag tag-warn">Etimología no resuelta</span> <sup><a href="#f8">[8]</a></sup> <sup><a href="#f9">[9]</a></sup></p>
+
+<h3>Apariencia</h3>
+<p><span class="tag tag-fact">HECHO CITADO</span> Se lo describe como un hombrecito <strong>bajo, feo y muy peludo</strong>, con <strong>sombrero de paja</strong> y ropa humilde (a veces negra). Un rasgo recurrente en varias versiones son los <strong>pies peludos y/o vueltos al revés</strong> (talones adelante), para confundir a quien siga sus huellas. No deja ver bien su rostro. <sup><a href="#f8">[8]</a></sup> <sup><a href="#f9">[9]</a></sup></p>
+
+<h3>Comportamiento y poderes</h3>
+<ul>
+  <li><span class="tag tag-fact">HECHO CITADO</span> <strong>Genio de la noche.</strong> Se lo asocia al silbido en el viento; su presencia se anuncia con un silbido lejano en el campo. <sup><a href="#f8">[8]</a></sup></li>
+  <li><span class="tag tag-fact">HECHO CITADO</span> <strong>Metamorfosis y mimetismo.</strong> Se transforma en tronco, camalote, animal o planta, se desvanece en las sombras e <strong>imita a la perfección los sonidos de animales</strong> (caballo, perro, gallina y sobre todo pollitos). <sup><a href="#f8">[8]</a></sup></li>
+  <li><span class="tag tag-fact">HECHO CITADO</span> <strong>Fuerza sobrehumana</strong> pese a su tamaño. <sup><a href="#f8">[8]</a></sup></li>
+  <li><span class="tag tag-fact">HECHO CITADO</span> <strong>Ambivalente:</strong> castiga al cazador que mata más de lo que necesita (lo pierde en el monte), pero <strong>protege y da suerte</strong> a quien lo respeta y le deja ofrendas: <strong>tabaco negro, caña (aguardiente) y miel</strong>. Es rencoroso y vengativo si se lo ofende. En versiones populares también se lo teme por acosar a mujeres jóvenes solas. <sup><a href="#f8">[8]</a></sup> <sup><a href="#f9">[9]</a></sup></li>
+</ul>
+
+<h3>Dominio y versiones regionales</h3>
+<p><span class="tag tag-fact">HECHO CITADO</span> Su dominio es <strong>la noche, el campo/monte y las aves</strong>. La creencia está viva en <strong>Paraguay, el noreste argentino (Corrientes, Misiones, Formosa), el sur de Brasil y el sudeste de Bolivia</strong>. Los detalles (color del pelo, si es más benévolo o más maligno, qué ofrenda exige) cambian por región. <span class="tag tag-warn">Alta variación regional: no hay un "Pombero canónico" único</span> <sup><a href="#f8">[8]</a></sup> <sup><a href="#f9">[9]</a></sup></p>
+
+<!-- ============ SIETE HERMANOS ============ -->
+<h2 id="hermanos">4 · Los siete hijos de Tau y Kerana</h2>
+<p class="muted">Orden según la tradición (el que suele seguir la mayoría de compilaciones y Wikipedia). Cada ficha separa apariencia, poderes y dominio.</p>
+
+<!-- 1 Teju Jagua -->
+<div class="creature">
+  <h3>1. Teju Jagua <span class="order">· "lagarto-perro" · primogénito</span></h3>
+  <span class="domain">Dominio: cuevas, cavernas y frutas</span>
+  <dl class="row"><dt>Qué es</dt><dd>Señor y guardián de las cavernas y de las riquezas escondidas (el mito lo ancla al Cerro Yaguarón). El primer hijo. <sup><a href="#f2">[2]</a></sup></dd></dl>
+  <dl class="row"><dt>Apariencia</dt><dd>Enorme lagarto con <strong>siete cabezas de perro</strong> cuyos ojos lanzan llamaradas de fuego. Imponente y temible, pero torpe. <sup><a href="#f2">[2]</a></sup></dd></dl>
+  <dl class="row"><dt>Poderes / conducta</dt><dd>Pese a su aspecto, es <strong>inofensivo y pacífico</strong>: no puede usar su fuerza. Se alimenta de frutas y de la miel que le acerca su hermano Jasy Jateré. Su mirada de fuego intimida más que daña. <sup><a href="#f2">[2]</a></sup></dd></dl>
+</div>
+
+<!-- 2 Mbói Tu'i -->
+<div class="creature">
+  <h3>2. Mbói Tu'ĩ <span class="order">· "serpiente-loro" · segundo hijo</span></h3>
+  <span class="domain">Dominio: esteros, humedales y vida acuática</span>
+  <dl class="row"><dt>Qué es</dt><dd>Protector de los animales acuáticos, del rocío, la humedad y las flores. Guardián de los grandes esteros y pantanos. <sup><a href="#f3">[3]</a></sup></dd></dl>
+  <dl class="row"><dt>Apariencia</dt><dd>Cuerpo de <strong>serpiente gigante con cabeza de loro</strong> de pico descomunal; piel escamosa y veteada, plumas en cabeza y lomo, lengua bífida roja. <sup><a href="#f3">[3]</a></sup></dd></dl>
+  <dl class="row"><dt>Poderes / conducta</dt><dd>Espanta con la mirada y lanza <strong>graznidos aterradores</strong> que se oyen a distancia (alarma del ecosistema). Se alimenta de frutas, sobre todo de la naranja agria (<em>apepú</em>). <sup><a href="#f3">[3]</a></sup></dd></dl>
+</div>
+
+<!-- 3 Moñái -->
+<div class="creature">
+  <h3>3. Moñái <span class="order">· tercer hijo</span></h3>
+  <span class="domain">Dominio: campos abiertos, aire y aves</span>
+  <dl class="row"><dt>Qué es</dt><dd>Señor de los campos, la tierra y los vientos; en algunas versiones "señor del aire". Aficionado al robo: saqueaba cosechas y cocinas y escondía el botín en una cueva. <sup><a href="#f1">[1]</a></sup></dd></dl>
+  <dl class="row"><dt>Apariencia</dt><dd>Enorme serpiente con <strong>dos cuernos rectos e iridiscentes a modo de antenas</strong> emplumadas. <sup><a href="#f10">[10]</a></sup></dd></dl>
+  <dl class="row"><dt>Poderes / conducta</dt><dd>Trepa a los árboles con facilidad y caza aves <strong>hipnotizándolas con sus antenas</strong>. En el mito de cierre es el hermano <strong>engañado por Porãsy</strong> para reunir a los siete y provocar su fin. <sup><a href="#f1">[1]</a></sup> <span class="tag tag-warn">Versión discrepante: algunos folcloristas lo pintan como protector de aves y vientos, no devorador</span> <sup><a href="#f10">[10]</a></sup></dd></dl>
+</div>
+
+<!-- 4 Jasy Jateré -->
+<div class="creature">
+  <h3>4. Jasy Jateré <span class="order">· "pedacito de luna" · cuarto hijo</span></h3>
+  <span class="domain">Dominio: la siesta, el monte a mediodía</span>
+  <dl class="row"><dt>Qué es</dt><dd>El único de los siete con <strong>forma plenamente humana</strong> (no monstruo). Espíritu/dueño de la hora de la siesta. <sup><a href="#f4">[4]</a></sup></dd></dl>
+  <dl class="row"><dt>Apariencia</dt><dd>Niño pequeño, desnudo o con taparrabos, <strong>hermoso, de cabellos dorados/rubios</strong> (a veces ojos claros). Lleva un <strong>bastón o vara de oro</strong> donde residen sus poderes, y a veces sombrero de paja. <sup><a href="#f4">[4]</a></sup></dd></dl>
+  <dl class="row"><dt>Poderes / conducta</dt><dd>Recorre el campo a la hora de la siesta (~12:00 a 16:00) y <strong>atrae a los niños con un silbido hipnótico</strong> que imita a un ave. Los rapta, juega con ellos y los alimenta con miel y frutas; al soltarlos los besa/lame y los deja mudos, sordos o "atontados" un tiempo. Coco infantil para que los chicos no salgan al monte al mediodía. <sup><a href="#f4">[4]</a></sup></dd></dl>
+</div>
+
+<!-- 5 Kurupí -->
+<div class="creature">
+  <h3>5. Kurupí <span class="order">· quinto hijo</span></h3>
+  <span class="domain">Dominio: bosque, fertilidad y sexualidad</span>
+  <div class="box box-warn" style="margin:.6rem 0;">
+    <span class="tag tag-warn">CONTENIDO ADULTO</span> Este mito es abiertamente sexual/fálico. Descripción enciclopédica abajo; al final, cómo se suele suavizar para público general.
+  </div>
+  <dl class="row"><dt>Qué es</dt><dd>Deidad de la <strong>fertilidad y la sexualidad</strong>; guardián germinal del bosque (asegura la procreación de plantas y animales). Habita el hueco de árboles añosos. <sup><a href="#f5">[5]</a></sup></dd></dl>
+  <dl class="row"><dt>Apariencia</dt><dd>Enano robusto y peludo, feo, con los <strong>pies vueltos al revés</strong>. Su rasgo definitorio es un <strong>falo desmesuradamente largo que lleva enrollado a la cintura</strong>. <sup><a href="#f5">[5]</a></sup></dd></dl>
+  <dl class="row"><dt>Poderes / conducta</dt><dd>Usa su miembro como lazo para atrapar a distancia; en el folclore raptaba y embarazaba doncellas — históricamente la figura servía para "explicar" embarazos fuera de lo esperado. Simbólicamente encarna el poder de fecundación de la naturaleza. <sup><a href="#f1">[1]</a></sup> <sup><a href="#f5">[5]</a></sup></dd></dl>
+  <dl class="row"><dt>Suavizado</dt><dd>Para público general suele reinterpretarse como un <strong>duende del bosque tosco y peludo, ladrón/travieso y de pies invertidos</strong>, omitiendo o abstrayendo el rasgo fálico (p. ej. un "látigo" o liana en vez del falo). Es perfectamente adaptable sin el contenido explícito. <span class="tag tag-sug">nota de adaptación</span></dd></dl>
+</div>
+
+<!-- 6 Ao Ao -->
+<div class="creature">
+  <h3>6. Ao Ao <span class="order">· sexto hijo</span></h3>
+  <span class="domain">Dominio: cerros, montañas y tierras altas</span>
+  <dl class="row"><dt>Qué es</dt><dd>Dominador de los cerros y montañas. Vive en <strong>manadas</strong> en zonas montañosas e inhóspitas. El más devorador del grupo. <sup><a href="#f6">[6]</a></sup></dd></dl>
+  <dl class="row"><dt>Apariencia</dt><dd>Bestia cuadrúpeda parecida a una <strong>gran oveja o carnero con cabeza de jabalí/pecarí</strong>, colmillos afilados, cuerpo peludo y fuerza descomunal. (Otras versiones: muchos pies, o forma de perro salvaje.) <span class="tag tag-warn">apariencia variable entre fuentes</span> <sup><a href="#f6">[6]</a></sup></dd></dl>
+  <dl class="row"><dt>Poderes / conducta</dt><dd>Persigue sin descanso y devora personas; su nombre imita el grito <strong>"¡Ao! ¡Ao!"</strong> que repite al cazar. Se escapa de él <strong>trepando a una palmera pindó</strong> (árbol sagrado): pierde el rastro y abandona. Se usa para inculcar respeto/miedo al monte. <sup><a href="#f6">[6]</a></sup></dd></dl>
+</div>
+
+<!-- 7 Luisón -->
+<div class="creature">
+  <h3>7. Luisón <span class="order">· "Luisõ" / Lobizón · séptimo y último hijo</span></h3>
+  <span class="domain">Dominio: la muerte, los cementerios, la noche</span>
+  <dl class="row"><dt>Qué es</dt><dd>Sobre él recae <strong>la peor maldición</strong> de los siete: es el <strong>señor de la muerte</strong> y de todo lo relacionado con ella. Es el más temido. <sup><a href="#f7">[7]</a></sup></dd></dl>
+  <dl class="row"><dt>Apariencia</dt><dd>Monstruo canino: en la versión guaraní pura, criatura <strong>escuálida, sucia y maloliente</strong>, de pelo largo, aspecto repugnante. En la versión mestiza/"lobizón" moderna, hombre-lobo de pelaje oscuro, garras y colmillos que se transforma en <strong>noches de luna llena</strong>. <sup><a href="#f7">[7]</a></sup></dd></dl>
+  <dl class="row"><dt>Poderes / conducta</dt><dd>Deambula por <strong>cementerios y profana tumbas</strong>, alimentándose de carroña y huesos de cadáveres. En la creencia popular sincrética, el <strong>séptimo hijo varón</strong> de una familia de siete varones se transforma en Luisón al llegar a la adolescencia (martes y viernes de noche), revolcándose sobre tierra de tumba, ceniza o arena. <span class="tag tag-warn">La versión "hombre-lobo europeo" es sincretismo posterior; el Luisón guaraní original es más un espíritu cadavérico</span> <sup><a href="#f7">[7]</a></sup></dd></dl>
+</div>
+
+<!-- ============ CONTRADICCIONES ============ -->
+<h2 id="contradicciones">5 · Contradicciones y vacíos de la tradición</h2>
+<div class="box box-warn">
+  <ul style="margin:0;">
+    <li><span class="tag tag-warn">DUDA</span> <strong>El orden y la lista de los siete son bastante estables</strong> entre fuentes, pero <strong>los detalles físicos varían</strong> (Ao Ao como oveja-jabalí vs. bestia de muchos pies; Luisón cadavérico vs. hombre-lobo).</li>
+    <li><span class="tag tag-warn">DUDA</span> <strong>Moñái</strong>: unas fuentes lo hacen ladrón/depredador; otras, protector de aves y vientos. No hay consenso.</li>
+    <li><span class="tag tag-warn">DUDA</span> <strong>Quién lanza la maldición</strong> (Angatupyry, Arasy o Tupã) y <strong>el cierre astronómico</strong> (Porãsy → Venus, vs. los siete → estrellas/Pléyades) cambian según la compilación.</li>
+    <li><span class="tag tag-warn">DUDA</span> <strong>Pombero</strong>: etimología no resuelta y fuerte variación regional; su carácter oscila de guardián benévolo a acosador maligno. No pertenece al ciclo de los siete.</li>
+    <li><span class="tag tag-warn">FUENTES</span> Buena parte del <em>corpus</em> proviene de recopilaciones del s. XX (León Cadogan, Dionisio González Torres, Museo Mitológico Ramón Elías). La mitología guaraní es de <strong>transmisión oral</strong>: no existe un "texto canónico" único. Tratar toda versión como "una variante", no como La Verdad.</li>
+  </ul>
+</div>
+
+<!-- ============ SUGERENCIAS ============ -->
+<h2 id="sugerencias">6 · Sugerencias para el juego <span class="tag tag-sug" style="vertical-align:middle;">NO ES DECISIÓN</span></h2>
+<div class="box box-sug">
+  <p style="margin-top:0;">Todo lo de esta sección es <strong>propuesta de diseño</strong> para que el PO elija. No modifica nada del mito ni del juego. <em>Vigilia</em> es co-op online 4 jugadores, oleadas con jefe — el material calza bien con eso.</p>
+</div>
+
+<h3>Mapeo criatura → rol de enemigo <span class="tag tag-sug">SUGERENCIA</span></h3>
+<div style="overflow-x:auto;">
+<table style="border-collapse:collapse;width:100%;min-width:520px;font-size:.92rem;">
+  <thead>
+    <tr style="border-bottom:2px solid var(--line);text-align:left;">
+      <th style="padding:.5rem .6rem;">Criatura</th>
+      <th style="padding:.5rem .6rem;">Rol sugerido</th>
+      <th style="padding:.5rem .6rem;">Fantasía de combate posible</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid var(--line);">
+      <td style="padding:.5rem .6rem;"><strong>Teju Jagua</strong></td>
+      <td style="padding:.5rem .6rem;">Mini-jefe / tanque lento</td>
+      <td style="padding:.5rem .6rem;">Siete cabezas = siete puntos débiles; ojos de fuego como ataque a distancia. Torpe pero duro.</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--line);">
+      <td style="padding:.5rem .6rem;"><strong>Mbói Tu'ĩ</strong></td>
+      <td style="padding:.5rem .6rem;">Enemigo de zona de agua</td>
+      <td style="padding:.5rem .6rem;">Grito que aturde/alerta (buff a la oleada); ataca desde esteros. Control de área.</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--line);">
+      <td style="padding:.5rem .6rem;"><strong>Moñái</strong></td>
+      <td style="padding:.5rem .6rem;">Jefe de oleada aérea / "ladrón"</td>
+      <td style="padding:.5rem .6rem;">Antenas que hipnotizan (invierte controles / atrae jugadores); roba recursos y huye a su cueva.</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--line);">
+      <td style="padding:.5rem .6rem;"><strong>Jasy Jateré</strong></td>
+      <td style="padding:.5rem .6rem;">Enemigo de control / "encantador"</td>
+      <td style="padding:.5rem .6rem;">Silbido que atrae/aísla a un jugador del grupo (separa al equipo); veloz, esquivo, no muy resistente.</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--line);">
+      <td style="padding:.5rem .6rem;"><strong>Kurupí</strong></td>
+      <td style="padding:.5rem .6rem;">Enemigo de agarre (versión suavizada)</td>
+      <td style="padding:.5rem .6rem;">Lazo/liana que engancha y arrastra jugadores a distancia (sin el rasgo sexual). Rápido, de bosque.</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--line);">
+      <td style="padding:.5rem .6rem;"><strong>Ao Ao</strong></td>
+      <td style="padding:.5rem .6rem;">Enemigo de horda / "pack"</td>
+      <td style="padding:.5rem .6rem;">Aparece en manada, persecución implacable ("¡Ao! ¡Ao!"); zona segura = "palmera pindó" como mecánica de refugio.</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem .6rem;"><strong>Luisón</strong></td>
+      <td style="padding:.5rem .6rem;">Jefe final (candidato fuerte)</td>
+      <td style="padding:.5rem .6rem;">Señor de la muerte; fase nocturna/luna llena; revive caídos, aura de miasma. El "mito mayor".</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3>¿Quién es el jefe final? — candidatos con peso <span class="tag tag-sug">SUGERENCIA</span></h3>
+<ul>
+  <li><strong>Luisón (recomendado como boss "clásico"):</strong> es el séptimo hijo, el de la <em>peor</em> maldición y <strong>señor de la muerte</strong>. Simbólicamente es el clímax natural de una escalada de oleadas. Casa perfecto con "el mito mayor" cierra-partida. <span class="tag tag-sug">SUGERENCIA</span></li>
+  <li><strong>Moñái (boss "narrativo"):</strong> en el mito es el hermano que <strong>reúne a los siete</strong> y cae en la emboscada de Porãsy. Si se quiere que el jefe final ate el ciclo entero (los siete convergen), Moñái tiene ese rol dramático. <span class="tag tag-sug">SUGERENCIA</span></li>
+  <li><strong>Teju Jagua (boss "visual"):</strong> siete cabezas y ojos de fuego = espectáculo. Contra: en el mito es inofensivo; usarlo de jefe traiciona un poco la fuente (decisión de tono del PO). <span class="tag tag-sug">SUGERENCIA</span></li>
+  <li><strong>Pombero (boss "temático de la noche", con salvedad):</strong> encaja con un juego llamado <em>Vigilia</em> (velar de noche) y es "señor de la noche". <strong>Pero es de otro ciclo mítico</strong>: si el arco es "los siete hijos malditos", meter al Pombero de jefe mezcla dos leyendas. Alternativa limpia: usarlo como <strong>entidad ambiental/NPC de la noche</strong> (guía ambiguo, da o quita suerte, exige ofrendas) en vez de boss. <span class="tag tag-sug">SUGERENCIA</span> <span class="tag tag-warn">ojo al cruce de ciclos</span></li>
+</ul>
+
+<div class="box box-sug">
+  <h4>Idea de estructura de campaña (opcional)</h4>
+  <p style="margin-bottom:0;">El propio mito da un esqueleto: <strong>siete oleadas = siete hermanos</strong>, en su orden tradicional (Teju Jagua → … → Luisón), cada una en su dominio (cueva, estero, campo, siesta, bosque, cerro, cementerio), y un <strong>jefe final</strong> que corona la escalada (Luisón por muerte, o Moñái por convergencia). El Pombero, si el PO quiere, como <strong>hilo conductor nocturno</strong> entre oleadas. <span class="tag tag-sug">Todo esto es propuesta; la historia la define el PO.</span></p>
+</div>
+
+<!-- ============ FUENTES ============ -->
+<h2 id="fuentes">7 · Fuentes</h2>
+<p class="muted"><span class="rank rank-a">A</span> fuente enciclopédica / institucional / folclore documentado &nbsp; · &nbsp; <span class="rank rank-b">B</span> divulgación secundaria (usada como apoyo o para contraste).</p>
+<ol class="srclist">
+  <li id="f1"><strong>Taú y Keraná</strong> — Wikipedia en español (mito de origen, los siete hijos, cierre con Porãsy). <span class="rank rank-a">A</span><br><a href="https://es.wikipedia.org/wiki/Ta%C3%BA_y_Keran%C3%A1">https://es.wikipedia.org/wiki/Taú_y_Keraná</a></li>
+  <li id="f2"><strong>Teju Jaguá</strong> — Wikipedia en español. <span class="rank rank-a">A</span><br><a href="https://es.wikipedia.org/wiki/Teju_Jagu%C3%A1">https://es.wikipedia.org/wiki/Teju_Jaguá</a></li>
+  <li id="f3"><strong>Mbói Tu'i</strong> — Wikipedia en español. <span class="rank rank-a">A</span><br><a href="https://es.wikipedia.org/wiki/Mb%C3%B3i_Tu'i">https://es.wikipedia.org/wiki/Mbói_Tu'i</a></li>
+  <li id="f4"><strong>Jasy Jateré</strong> — Wikipedia en español. <span class="rank rank-a">A</span><br><a href="https://es.wikipedia.org/wiki/Jasy_Jater%C3%A9">https://es.wikipedia.org/wiki/Jasy_Jateré</a></li>
+  <li id="f5"><strong>Kurupí</strong> — Wikipedia en español (mito fálico / fertilidad). <span class="rank rank-a">A</span><br><a href="https://es.wikipedia.org/wiki/Kurup%C3%AD">https://es.wikipedia.org/wiki/Kurupí</a></li>
+  <li id="f6"><strong>Ao Ao</strong> — Wikipedia en inglés. <span class="rank rank-a">A</span><br><a href="https://en.wikipedia.org/wiki/Ao_Ao">https://en.wikipedia.org/wiki/Ao_Ao</a></li>
+  <li id="f7"><strong>Lobisón / Luisón</strong> — Wikipedia en español (séptimo hijo, versión guaraní vs. sincrética). <span class="rank rank-a">A</span><br><a href="https://es.wikipedia.org/wiki/Lobis%C3%B3n">https://es.wikipedia.org/wiki/Lobisón</a></li>
+  <li id="f8"><strong>Pombero</strong> — Wikipedia en español (origen, apariencia, poderes, versiones regionales, ofrendas). <span class="rank rank-a">A</span><br><a href="https://es.wikipedia.org/wiki/Pombero">https://es.wikipedia.org/wiki/Pombero</a></li>
+  <li id="f9"><strong>Portal Guaraní — Museo Mitológico Ramón Elías</strong> (compilación de mitos y leyendas del Paraguay; esculturas y versiones de González Torres, Tomás Micó, etc.). Fuente institucional/folclore documentado. <span class="rank rank-a">A</span><br><a href="https://www.portalguarani.com/detalles_museos_otras_obras.php?PqwoiflUYTeslk=MjQxMQ%3D%3D">Pombéro (Museo R. Elías) en portalguarani.com</a> · <a href="https://portalguarani.com/detalles_museos_otras_obras.php?PqwoiflUYTeslk=MjQwMA%3D%3D">Tau y Kerana</a></li>
+  <li id="f10"><strong>Moñái</strong> — "La serpiente con cuernos plumados guaraní", pueblosindigenas.es (recoge la versión "protector" contrapuesta). Divulgación de apoyo/contraste. <span class="rank rank-b">B</span><br><a href="https://pueblosindigenas.es/leyendas/monai/">https://pueblosindigenas.es/leyendas/monai/</a></li>
+  <li id="f11"><strong>ABC Color</strong> (diario paraguayo) — "Los mitos del Paraguay" / adaptaciones escolares del Ao Ao y otros. Prensa nacional, útil para la versión de circulación popular actual. <span class="rank rank-b">B</span><br><a href="https://www.abc.com.py/escolar/educacion-inicial/asi-pienso/2025/08/14/estos-son-los-principales-mitos-del-paraguay/">abc.com.py — principales mitos del Paraguay</a></li>
+  <li id="f12"><strong>ICC — Instituto de Cultura CUDES</strong>: "Teyú Yaguá (Lagarto Perro o Yaguarón)" — nota cultural sobre Teju Jagua. Apoyo. <span class="rank rank-b">B</span><br><a href="https://institutodecultura.cudes.org.ar/articulo/teyu-yagua-lagarto-perro-o-yaguaron/">institutodecultura.cudes.org.ar — Teyú Yaguá</a></li>
+</ol>
+
+<p class="muted" style="font-size:.85rem;">Nota sobre autores de referencia citados dentro de estas fuentes (no consultados en original aquí): <em>León Cadogan</em> (etnógrafo, recopilador clave del guaraní), <em>Dionisio González Torres</em> (<em>Folklore del Paraguay</em>) y el <em>Museo Mitológico Ramón Elías</em>. Para una historia definitiva convendría, si el PO quiere rigor máximo, cotejar una de esas obras impresas.</p>
+
+<div class="foot">
+  <p>Informe de research · Estudio Salto Games · proyecto <em>Vigilia</em>. Documento de apoyo a la decisión: <strong>no fija la historia</strong>. Toda "sugerencia de juego" está marcada como tal y separada del "hecho citado". Las contradicciones entre fuentes están señaladas explícitamente; donde falta consenso, se reporta el vacío en vez de rellenarlo.</p>
+  <p>Búsquedas realizadas: 23 de julio de 2026.</p>
+</div>
+
+</div>
